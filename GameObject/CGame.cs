@@ -11,5 +11,12 @@ namespace FliSan.GameObject
         private List<CFaction> factions_;
         private List<CCity> cities_;
         private List<CCharacter> characters_;
+
+        public CGame()
+        {
+            factions_ = new List<CFaction>();
+            cities_ = new List<CCity>();
+            characters_ = new List<CCharacter>();
+        }
     }
 }
