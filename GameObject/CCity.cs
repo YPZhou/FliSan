@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FliSan
+namespace FliSan.GameObject
 {
-    class Program
+    class CCity
     {
-        static void Main(string[] args)
-        {
-        }
     }
 }
