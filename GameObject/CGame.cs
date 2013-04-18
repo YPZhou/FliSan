@@ -12,11 +12,35 @@ namespace FliSan.GameObject
         private List<CCity> cities_;
         private List<CCharacter> characters_;
 
+        private int gameTurn_;
+
         public CGame()
         {
-            factions_ = new List<CFaction>();
-            cities_ = new List<CCity>();
-            characters_ = new List<CCharacter>();
+            this.factions_ = new List<CFaction>();
+            this.cities_ = new List<CCity>();
+            this.characters_ = new List<CCharacter>();
+        }
+
+        public void CreateGame()
+        {
+        }
+
+        public void LoadGame(String _path)
+        {
+        }
+
+        public void SaveGame(String _path)
+        {
+        }
+
+        public void Update()
+        {
+            foreach (CFaction faction in this.factions_)
+            {
+                faction.Update(this.gameTurn_);
+            }
+
+            this.gameTurn_++;
         }
     }
 }

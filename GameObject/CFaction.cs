@@ -9,15 +9,28 @@ namespace FliSan.GameObject
     class CFaction
     {
         private List<CCity> cities_;
-        private List<CCharacter> characters_;
+        private List<CCharacter> characters_;        
 
-        private int gold_;
-        private int food_;
+        private bool controlledByPlayer_;
 
-        public CFaction(int _gold, int _food)
+        public CFaction(bool _controlledByPlayer)
         {
-            this.gold_ = _gold;
-            this.food_ = _food;
+            this.controlledByPlayer_ = _controlledByPlayer;
+        }
+
+        public void Update(int _gameTurn)
+        {
+            if (this.controlledByPlayer_)
+            {
+            }
+            else
+            {
+            }
+
+            foreach (CCity city in this.cities_)
+            {
+                city.Update(_gameTurn);
+            }
         }
     }
 }
