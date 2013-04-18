@@ -30,9 +30,11 @@ namespace FliSan
 
         private void Start()
         {
+            RenderWindow window = null;
+
             try
             {
-                RenderWindow window = new RenderWindow(new VideoMode(800, 600), "FliSan !!", Styles.Fullscreen);
+                window = new RenderWindow(new VideoMode(800, 600), "FliSan !!", Styles.Fullscreen);
 
                 while (window.IsOpen())
                 {
@@ -48,6 +50,10 @@ namespace FliSan
             }
             catch (Exception e)
             {
+                if (window != null)
+                {
+                    window.Close();
+                }
                 DateTime dt = System.DateTime.Now;
                 String logPath = "CrashLog_" + dt.Year + "_" + dt.Month + "_" + dt.Day + "_" + dt.Hour + "h" + dt.Minute + ".log";
                 StreamWriter sw = new StreamWriter(new FileStream(logPath, FileMode.Create));
@@ -57,7 +63,7 @@ namespace FliSan
                 sw.WriteLine("=================== StackTrace ==================");
                 sw.WriteLine(e.StackTrace);
 
-                sw.Close();
+                sw.Close();               
 
                 MessageBox.Show("游戏遇到严重错误，请提交游戏目录下的'" + logPath + "'。", "游戏错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
