@@ -10,6 +10,8 @@ namespace FliSan.GameObject
     {
         private CFaction faction_;
         private List<CCharacter> characters_;
+        private int mapCoordX_;
+        private int mapCoordY_;
 
         private int maxAgriculturePopulation_;
 

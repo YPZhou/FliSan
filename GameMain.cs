@@ -10,12 +10,16 @@ using SFML.Window;
 using SFML.Graphics;
 
 using FliSan.GameObject;
+using FliSan.GameUI;
+using FliSan.GameAI;
 
 namespace FliSan
 {
     class GameMain
     {
         private CGame game_;
+        private CGameUIManager gameUIManager_;
+        private CGameAIManager gameAIManager_;
 
         static void Main(string[] args)
         {
@@ -25,7 +29,9 @@ namespace FliSan
 
         private GameMain()
         {
-            game_ = new CGame();            
+            game_ = new CGame();
+            gameUIManager_ = new CGameUIManager();
+            gameAIManager_ = new CGameAIManager();
         }
 
         private void Start()
@@ -71,10 +77,14 @@ namespace FliSan
 
         private void Update()
         {
+            this.game_.Update();
+            this.gameUIManager_.Update(this.game_);
+            this.gameAIManager_.Update(this.game_);
         }
 
         private void Render(RenderWindow _window)
         {
+            this.gameUIManager_.Render(_window);
         }
     }
 }
