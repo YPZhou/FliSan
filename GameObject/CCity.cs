@@ -8,6 +8,8 @@ namespace FliSan.GameObject
 {
     class CCity
     {
+        private int ID_;
+
         private CFaction faction_;
         private List<CCharacter> characters_;
         private int mapCoordX_;
@@ -28,18 +30,15 @@ namespace FliSan.GameObject
         private int cityDefence_;
         private int soldier_;
 
-        public CCity(int _maxAgriculturePopulation, int _population, int _gold, int _food, double _foodIncRate, double _goldIncRate, int _cityDefence, int _soldier)
+        public CCity(int _ID, CFaction _faction)
         {
-            this.maxAgriculturePopulation_ = _maxAgriculturePopulation;
-            this.population_ = _population;
-            this.gold_ = _gold;
-            this.food_ = _food;
+            this.ID_ = _ID;
+            this.faction_ = _faction;
+            this.characters_ = new List<CCharacter>();
+            this.mapCoordX_ = -1;
+            this.mapCoordY_ = -1;
             this.populationLoseCounter_ = 1;
             this.populationGainCounter_ = 1;
-            this.foodIncRate_ = _foodIncRate;
-            this.goldIncRate_ = _goldIncRate;
-            this.cityDefence_ = _cityDefence;
-            this.soldier_ = _soldier;
         }
 
         public void Update(int _gameTurn)
@@ -108,6 +107,73 @@ namespace FliSan.GameObject
                 }
             }
             this.gold_ += goldIncrease;
+        }
+
+        public void AddCharacter(CCharacter _character)
+        {
+            bool canAddCharacter = true;
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.Equals(_character))
+                {
+                    canAddCharacter = false;
+                }
+            }
+
+            if (canAddCharacter)
+            {
+                this.characters_.Add(_character);
+            }
+        }
+
+        public CFaction Faction
+        {
+            get
+            {
+                return this.faction_;
+            }
+            set
+            {
+                this.faction_ = value;
+            }
+        }
+
+        public int MapCoordX
+        {
+            get
+            {
+                return this.mapCoordX_;
+            }
+            set
+            {
+                this.mapCoordX_ = value;
+            }
+        }
+
+        public int MapCoordY
+        {
+            get
+            {
+                return this.mapCoordY_;
+            }
+            set
+            {
+                this.mapCoordY_ = value;
+            }
+        }
+
+        public override bool Equals(Object _that)
+        {
+            if (_that is CCity)
+            {
+                return this.ID_ == ((CCity)_that).ID_;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ID_;
         }
     }
 }

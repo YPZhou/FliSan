@@ -23,8 +23,57 @@ namespace FliSan.GameObject
             this.characters_ = new List<CCharacter>();
         }
 
-        public void CreateGame()
+        public void CreateGame(int _width, int _height)
         {
+            if (_width > 0 && _height > 0)
+            {
+                this.map_.CreateMap(_width, _height);
+
+                int cityCount = _width * _height;
+                int factionCount = (int)(cityCount * 0.75);
+                int characterCount = cityCount * 5;
+
+                this.cities_.Clear();
+                this.factions_.Clear();
+                this.characters_.Clear();
+
+                for (int i = 0; i < factionCount; i++)
+                {
+                    CFaction faction = new CFaction(this.factions_.Count + 1, false);
+                    this.factions_.Add(faction);
+
+                    CCity city = new CCity(this.cities_.Count + 1, faction);
+                    this.cities_.Add(city);
+                    faction.AddCity(city);
+                    this.map_.PlaceCity(city);                    
+
+                    for (int j = 0; j < 5; j++)
+                    {
+                        CCharacter character = new CCharacter(this.characters_.Count + 1, faction, city);
+                        this.characters_.Add(character);
+                        faction.AddCharacter(character);
+                        city.AddCharacter(character);                        
+                    }
+
+                    // create big faction
+                    // big faction has one more city
+                    if (cityCount - this.cities_.Count > factionCount - this.factions_.Count)
+                    {
+                        city = new CCity(this.cities_.Count + 1, faction);
+                        this.cities_.Add(city);
+                        faction.AddCity(city);
+                        this.map_.PlaceCity(city);                        
+
+                        for (int j = 0; j < 5; j++)
+                        {
+                            CCharacter character = new CCharacter(this.characters_.Count + 1, faction, city);
+                            this.characters_.Add(character);
+                            faction.AddCharacter(character);
+                            city.AddCharacter(character);
+                        }
+                    }
+                }
+            }
         }
 
         public void LoadGame(String _path)

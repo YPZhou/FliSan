@@ -8,13 +8,18 @@ namespace FliSan.GameObject
 {
     class CFaction
     {
+        private int ID_;
+
         private List<CCity> cities_;
         private List<CCharacter> characters_;        
 
         private bool controlledByPlayer_;
 
-        public CFaction(bool _controlledByPlayer)
+        public CFaction(int _ID, bool _controlledByPlayer)
         {
+            this.ID_ = _ID;
+            this.cities_ = new List<CCity>();
+            this.characters_ = new List<CCharacter>();
             this.controlledByPlayer_ = _controlledByPlayer;
         }
 
@@ -30,6 +35,40 @@ namespace FliSan.GameObject
             foreach (CCity city in this.cities_)
             {
                 city.Update(_gameTurn);
+            }
+        }
+
+        public void AddCity(CCity _city)
+        {
+            bool canAddCity = true;
+            foreach (CCity city in this.cities_)
+            {
+                if (city.Equals(_city))
+                {
+                    canAddCity = false;
+                }
+            }
+
+            if (canAddCity)
+            {
+                this.cities_.Add(_city);
+            }
+        }
+
+        public void AddCharacter(CCharacter _character)
+        {
+            bool canAddCharacter = true;
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.Equals(_character))
+                {
+                    canAddCharacter = false;
+                }
+            }
+
+            if (canAddCharacter)
+            {
+                this.characters_.Add(_character);
             }
         }
     }
