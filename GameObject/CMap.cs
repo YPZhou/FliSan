@@ -11,11 +11,14 @@ namespace FliSan.GameObject
         private int width_;
         private int height_;
 
+        private Random rand_;
+
         public CMap()
         {
             this.cities_ = null;
             this.width_ = 0;
             this.height_ = 0;
+            this.rand_ = new Random();
         }
 
         public void CreateMap(int _width, int _height)
@@ -42,7 +45,7 @@ namespace FliSan.GameObject
             {
                 for (int j = 0; j < this.height_; j++)
                 {
-                    if (this.cities_[i, j].Equals(_city))
+                    if (this.cities_[i, j] != null && this.cities_[i, j].Equals(_city))
                     {
                         canPlaceCity = false;
                     }
@@ -51,12 +54,43 @@ namespace FliSan.GameObject
 
             if (canPlaceCity)
             {
-                // ...
+                int x = rand_.Next(this.width_);
+                int y = rand_.Next(this.height_);
+                while (this.cities_[x, y] != null)
+                {
+                    x = rand_.Next(this.width_);
+                    y = rand_.Next(this.height_);
+                }
+                this.cities_[x, y] = _city;
             }
         }
 
         //public void PlaceCities(List<CCity> _cities)
         //{
         //}
+
+        public int Width
+        {
+            get
+            {
+                return this.width_;
+            }
+        }
+
+        public int Height
+        {
+            get
+            {
+                return this.height_;
+            }
+        }
+
+        public CCity this[int i, int j]
+        {
+            get
+            {
+                return this.cities_[i, j];
+            }
+        }
     }
 }

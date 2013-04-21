@@ -71,5 +71,13 @@ namespace FliSan.GameObject
                 this.characters_.Add(_character);
             }
         }
+
+        public int ID
+        {
+            get
+            {
+                return this.ID_;
+            }
+        }
     }
 }

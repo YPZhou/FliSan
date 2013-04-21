@@ -30,6 +30,10 @@ namespace FliSan
         private GameMain()
         {
             game_ = new CGame();
+            game_.CreateGame(10, 10);
+            StreamWriter sw = new StreamWriter(new FileStream("gameMap.txt", FileMode.Create));
+            sw.Write(game_.ToString());
+            sw.Close();  
             gameUIManager_ = new CGameUIManager();
             gameAIManager_ = new CGameAIManager();
         }
@@ -44,14 +48,17 @@ namespace FliSan
 
                 while (window.IsOpen())
                 {
+                    if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+                    {
+                        window.Close();
+                    }
+
                     window.DispatchEvents();
 
                     window.Clear(Color.Black);
                     Update();
                     Render(window);
                     window.Display();
-                    int a = 0;
-                    int b = 100 / a;
                 }
             }
             catch (Exception e)
@@ -79,7 +86,7 @@ namespace FliSan
         {
             this.game_.Update();
             this.gameUIManager_.Update(this.game_);
-            this.gameAIManager_.Update(this.game_);
+            this.gameAIManager_.Update(this.game_);           
         }
 
         private void Render(RenderWindow _window)

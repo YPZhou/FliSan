@@ -84,6 +84,30 @@ namespace FliSan.GameObject
         {
         }
 
+        public override String ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < this.map_.Width; i++)
+            {
+                for (int j = 0; j < this.map_.Height; j++)
+                {
+                    CCity city = this.map_[i, j];
+                    if (city != null)
+                    {
+                        sb.Append("|\t" + city.Faction.ID + "\t|");
+                    }
+                    else
+                    {
+                        sb.Append("|\tX\t|");
+                    }
+                }
+                sb.Append("\n");
+            }
+
+            return sb.ToString();
+        }
+
         public void Update()
         {
             foreach (CFaction faction in this.factions_)
