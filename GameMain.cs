@@ -36,6 +36,7 @@ namespace FliSan
             sw.Close();  
             gameUIManager_ = new CGameUIManager();
             gameAIManager_ = new CGameAIManager();
+            gameUIManager_.AddUI(new CUIMapRenderer(this.game_));
         }
 
         private void Start()

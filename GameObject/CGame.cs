@@ -117,5 +117,13 @@ namespace FliSan.GameObject
 
             this.gameTurn_++;
         }
+
+        public CMap Map
+        {
+            get
+            {
+                return this.map_;
+            }
+        }
     }
 }
