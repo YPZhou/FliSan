@@ -35,6 +35,54 @@ namespace FliSan.GameObject
             this.personaHates_ = new List<int>();
         }
 
+        public int LeaderShip
+        {
+            get
+            {
+                return this.leaderShip_;
+            }
+            set
+            {
+                this.leaderShip_ = value;
+            }
+        }
+
+        public int CombatSkill
+        {
+            get
+            {
+                return this.combatSkill_;
+            }
+            set
+            {
+                this.combatSkill_ = value;
+            }
+        }
+
+        public int Stratagem
+        {
+            get
+            {
+                return this.stratagem_;
+            }
+            set
+            {
+                this.stratagem_ = value;
+            }
+        }
+
+        public int Politics
+        {
+            get
+            {
+                return this.politics_;
+            }
+            set
+            {
+                this.politics_ = value;
+            }
+        }
+
         public override bool Equals(Object _that)
         {
             if (_that is CCharacter)

@@ -24,16 +24,22 @@ namespace FliSan
         static void Main(string[] args)
         {
             GameMain gMain = new GameMain();
+            gMain.Initialize();
             gMain.Start();
         }
 
         private GameMain()
         {
+        }
+
+        private void Initialize()
+        {
             game_ = new CGame();
             game_.CreateGame(10, 10);
             StreamWriter sw = new StreamWriter(new FileStream("gameMap.txt", FileMode.Create));
             sw.Write(game_.ToString());
-            sw.Close();  
+            sw.Close();
+
             gameUIManager_ = new CGameUIManager();
             gameAIManager_ = new CGameAIManager();
             gameUIManager_.AddUI(new CUIMapRenderer(this.game_));
