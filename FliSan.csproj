@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{ED3D6847-4D16-4BEE-A2D0-CFD67DB1BFF8}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>FliSan</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>FliSan</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>FliSan.GameMain</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="sfmlnet-graphics-2">
+      <HintPath>..\..\SFML.Net-2.0-rc\lib\x86\sfmlnet-graphics-2.dll</HintPath>
+    </Reference>
+    <Reference Include="sfmlnet-window-2">
+      <HintPath>..\..\SFML.Net-2.0-rc\lib\x86\sfmlnet-window-2.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="cn_font.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="csfml-graphics-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="csfml-window-2.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameAI\CGameAIManager.cs" />
+    <Compile Include="GameMain.cs" />
+    <Compile Include="GameObject\CCharacter.cs" />
+    <Compile Include="GameObject\CCity.cs" />
+    <Compile Include="GameObject\CFaction.cs" />
+    <Compile Include="GameObject\CGame.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait0.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait1.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait10.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait11.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait12.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait13.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait14.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait15.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait16.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait17.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait18.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait19.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait2.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait20.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait21.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait22.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait23.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait24.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait25.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait26.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait27.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait28.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait29.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait3.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait30.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait31.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait32.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait33.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait34.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait35.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait4.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait5.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait6.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait7.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait8.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTrait9.cs" />
+    <Compile Include="GameObject\CharacterTraits\CCharacterTraitDictionary.cs" />
+    <Compile Include="GameObject\CMap.cs" />
+    <Compile Include="GameUI\CGameUIManager.cs" />
+    <Compile Include="GameUI\CUIMapRenderer.cs" />
+    <Compile Include="GameUI\IGameUI.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+</Project>
