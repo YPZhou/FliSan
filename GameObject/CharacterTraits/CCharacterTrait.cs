@@ -5,21 +5,51 @@ using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
-    // base interface
-    interface ICharacterTrait
+    // base class
+    class CCharacterTrait
     {
-        List<ICharacterTrait> Likes();
-        List<ICharacterTrait> Hates();
+        protected List<int> likeList_;
+        protected List<int> hateList_;
+
+        public CCharacterTrait()
+        {
+            this.likeList_ = new List<int>();
+            this.hateList_ = new List<int>();
+        }
+
+        public List<CCharacterTrait> Likes(CCharacterTraitDictionary _dictionary)
+        {
+            List<CCharacterTrait> likes = new List<CCharacterTrait>();
+
+            foreach (int like in this.likeList_)
+            {
+                likes.Add(_dictionary[like]);
+            }
+
+            return likes;
+        }
+
+        public List<CCharacterTrait> Hates(CCharacterTraitDictionary _dictionary)
+        {
+            List<CCharacterTrait> hates = new List<CCharacterTrait>();
+
+            foreach (int hate in this.hateList_)
+            {
+                hates.Add(_dictionary[hate]);
+            }
+
+            return hates;
+        }
     }
 
-    interface ICharacterTraitOrigin : ICharacterTrait { }               // 出身属性
-    interface ICharacterTraitThreeKindom : ICharacterTraitOrigin { }    // 三国出身
-    interface ICharacterTraitSengoku : ICharacterTraitOrigin { }        // 战国出身
-    interface ICharacterTraitEurope : ICharacterTraitOrigin { }         // 西洋出身
-    interface ICharacterTraitGender : ICharacterTrait { }               // 性别属性
-    interface ICharacterTraitMale : ICharacterTraitGender { }           // 男性
-    interface ICharacterTraitFemale : ICharacterTraitGender { }         // 女性
-    interface ICharacterTraitNormal : ICharacterTrait { }               // 其他属性
+    abstract class CCharacterTraitOrigin : CCharacterTrait { }               // 出身属性
+    abstract class CCharacterTraitThreeKindom : CCharacterTraitOrigin { }    // 三国出身
+    abstract class CCharacterTraitSengoku : CCharacterTraitOrigin { }        // 战国出身
+    abstract class CCharacterTraitEurope : CCharacterTraitOrigin { }         // 西洋出身
+    abstract class CCharacterTraitGender : CCharacterTrait { }               // 性别属性
+    abstract class CCharacterTraitMale : CCharacterTraitGender { }           // 男性
+    abstract class CCharacterTraitFemale : CCharacterTraitGender { }         // 女性
+    abstract class CCharacterTraitNormal : CCharacterTrait { }               // 其他属性
 
     /*
         出身 显式属性 三国类（汉官，诸侯，英杰，盗贼，富绅，文豪） 战国类（公卿，武士，僧侣，忍者，商人，茶人） 西洋类（领主，骑士，学者，教廷，海盗，工匠）

@@ -6,21 +6,17 @@ using System.Text;
 namespace FliSan.GameObject.CharacterTraits
 {
     // 汉官出身
-    class CCharacterTrait0 : ICharacterTraitThreeKindom
+    class CCharacterTrait0 : CCharacterTraitThreeKindom
     {
-        public List<ICharacterTrait> Likes()
+        public CCharacterTrait0()
+            : base()
         {
-            throw new NotImplementedException();
-        }
-
-        public List<ICharacterTrait> Hates()
-        {
-            throw new NotImplementedException();
+            this.likeList_.Add(0);
         }
 
         public override String ToString()
         {
-            throw new NotImplementedException();
+            return "汉官";
         }
     }
 }

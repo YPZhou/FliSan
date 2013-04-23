@@ -20,7 +20,7 @@ namespace FliSan.GameObject
         private int stratagem_;
         private int politics_;
 
-        private List<ICharacterTrait> traits_;
+        private List<CCharacterTrait> traits_;
 
         public CCharacter(int _ID, CFaction _faction, CCity _city)
         {
@@ -28,24 +28,24 @@ namespace FliSan.GameObject
             this.faction_ = _faction;
             this.city_ = _city;
 
-            this.traits_ = new List<ICharacterTrait>();
+            this.traits_ = new List<CCharacterTrait>();
         }
 
         /// <summary>
         /// Adds a trait to this character.
         /// </summary>
         /// <param name="_trait"></param>
-        public void AddTrait(ICharacterTrait _trait)
+        public void AddTrait(CCharacterTrait _trait)
         {
             bool hasOrigin = false;
             bool hasGender = false;
-            foreach (ICharacterTrait trait in this.traits_)
+            foreach (CCharacterTrait trait in this.traits_)
             {
-                if (trait is ICharacterTraitOrigin)
+                if (trait is CCharacterTraitOrigin)
                 {
                     hasOrigin = true;
                 }
-                if (trait is ICharacterTraitGender)
+                if (trait is CCharacterTraitGender)
                 {
                     hasGender = true;
                 }
@@ -53,7 +53,7 @@ namespace FliSan.GameObject
 
             if (hasOrigin)
             {
-                if (_trait is ICharacterTraitOrigin)
+                if (_trait is CCharacterTraitOrigin)
                 {
                     return;
                 }
@@ -61,7 +61,7 @@ namespace FliSan.GameObject
 
             if (hasGender)
             {
-                if (_trait is ICharacterTraitGender)
+                if (_trait is CCharacterTraitGender)
                 {
                     return;
                 }
@@ -76,19 +76,19 @@ namespace FliSan.GameObject
         /// </summary>
         /// <param name="_that"></param>
         /// <returns></returns>
-        public int Evaluate(CCharacter _that)
+        public int Evaluate(CCharacter _that, CCharacterTraitDictionary _dictionary)
         {
-            List<ICharacterTrait> likeList = new List<ICharacterTrait>();
-            List<ICharacterTrait> hateList = new List<ICharacterTrait>();
+            List<CCharacterTrait> likeList = new List<CCharacterTrait>();
+            List<CCharacterTrait> hateList = new List<CCharacterTrait>();
 
-            foreach (ICharacterTrait trait in this.traits_)
+            foreach (CCharacterTrait trait in this.traits_)
             {
-                likeList.AddRange(trait.Likes());
-                hateList.AddRange(trait.Hates());
+                likeList.AddRange(trait.Likes(_dictionary));
+                hateList.AddRange(trait.Hates(_dictionary));
             }
 
             int evaluation = 0;
-            foreach (ICharacterTrait trait in _that.traits_)
+            foreach (CCharacterTrait trait in _that.traits_)
             {
                 if (likeList.Contains(trait))
                 {
@@ -150,7 +150,7 @@ namespace FliSan.GameObject
             }
         }
 
-        public List<ICharacterTrait> Traits
+        public List<CCharacterTrait> Traits
         {
             get
             {

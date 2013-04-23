@@ -6,16 +6,11 @@ using System.Text;
 namespace FliSan.GameObject.CharacterTraits
 {
     // 教廷出身
-    class CCharacterTrait15 : ICharacterTraitEurope
+    class CCharacterTrait15 : CCharacterTraitEurope
     {
-        public List<ICharacterTrait> Likes()
+        public CCharacterTrait15()
+            : base()
         {
-            throw new NotImplementedException();
-        }
-
-        public List<ICharacterTrait> Hates()
-        {
-            throw new NotImplementedException();
         }
 
         public override String ToString()
