@@ -17,5 +17,10 @@ namespace FliSan.GameObject.CharacterTraits
         {
             throw new NotImplementedException();
         }
+
+        public override String ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -5,7 +5,22 @@ using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
-    class CCharacterTrait30
+    // 病气属性
+    class CCharacterTrait30 : ICharacterTraitNormal
     {
+        public List<ICharacterTrait> Likes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ICharacterTrait> Hates()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override String ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

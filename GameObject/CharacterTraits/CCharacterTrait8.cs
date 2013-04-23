@@ -5,7 +5,22 @@ using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
-    class CCharacterTrait8
+    // 僧侣出身
+    class CCharacterTrait8 : ICharacterTraitSengoku
     {
+        public List<ICharacterTrait> Likes()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ICharacterTrait> Hates()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override String ToString()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
