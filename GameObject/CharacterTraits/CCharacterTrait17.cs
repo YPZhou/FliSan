@@ -5,7 +5,7 @@ using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
-    // 工匠
+    // 工匠出身
     class CCharacterTrait17 : ICharacterTraitEurope
     {
         public List<ICharacterTrait> Likes()

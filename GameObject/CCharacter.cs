@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using FliSan.GameObject.CharacterTraits;
+
 namespace FliSan.GameObject
 {
     class CCharacter
@@ -18,12 +20,7 @@ namespace FliSan.GameObject
         private int stratagem_;
         private int politics_;
 
-        private int origin_;
-        private int persona1_;
-        private int persona2_;
-
-        private List<int> personaLikes_;
-        private List<int> personaHates_;
+        private List<ICharacterTrait> traits_;
 
         public CCharacter(int _ID, CFaction _faction, CCity _city)
         {
@@ -31,8 +28,78 @@ namespace FliSan.GameObject
             this.faction_ = _faction;
             this.city_ = _city;
 
-            this.personaLikes_ = new List<int>();
-            this.personaHates_ = new List<int>();
+            this.traits_ = new List<ICharacterTrait>();
+        }
+
+        /// <summary>
+        /// Adds a trait to this character.
+        /// </summary>
+        /// <param name="_trait"></param>
+        public void AddTrait(ICharacterTrait _trait)
+        {
+            bool hasOrigin = false;
+            bool hasGender = false;
+            foreach (ICharacterTrait trait in this.traits_)
+            {
+                if (trait is ICharacterTraitOrigin)
+                {
+                    hasOrigin = true;
+                }
+                if (trait is ICharacterTraitGender)
+                {
+                    hasGender = true;
+                }
+            }
+
+            if (hasOrigin)
+            {
+                if (_trait is ICharacterTraitOrigin)
+                {
+                    return;
+                }
+            }
+
+            if (hasGender)
+            {
+                if (_trait is ICharacterTraitGender)
+                {
+                    return;
+                }
+            }
+
+            this.traits_.Add(_trait);
+        }
+
+        /// <summary>
+        /// Evaluates "_that".</n>
+        /// Gets the "opinion" of character "this" towards character "_that".
+        /// </summary>
+        /// <param name="_that"></param>
+        /// <returns></returns>
+        public int Evaluate(CCharacter _that)
+        {
+            List<ICharacterTrait> likeList = new List<ICharacterTrait>();
+            List<ICharacterTrait> hateList = new List<ICharacterTrait>();
+
+            foreach (ICharacterTrait trait in this.traits_)
+            {
+                likeList.AddRange(trait.Likes());
+                hateList.AddRange(trait.Hates());
+            }
+
+            int evaluation = 0;
+            foreach (ICharacterTrait trait in _that.traits_)
+            {
+                if (likeList.Contains(trait))
+                {
+                    evaluation++;
+                }
+                if (hateList.Contains(trait))
+                {
+                    evaluation--;
+                }
+            }
+            return evaluation;
         }
 
         public int LeaderShip
@@ -80,6 +147,14 @@ namespace FliSan.GameObject
             set
             {
                 this.politics_ = value;
+            }
+        }
+
+        public List<ICharacterTrait> Traits
+        {
+            get
+            {
+                return this.traits_;
             }
         }
 
