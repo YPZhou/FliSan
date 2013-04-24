@@ -79,5 +79,21 @@ namespace FliSan.GameObject
                 return this.ID_;
             }
         }
+
+        public List<CCity> Cities
+        {
+            get
+            {
+                return this.cities_;
+            }
+        }
+
+        public List<CCharacter> Characters
+        {
+            get
+            {
+                return this.characters_;
+            }
+        }
     }
 }

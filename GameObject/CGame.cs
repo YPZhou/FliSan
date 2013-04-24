@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
+using FliSan.GameObject.CharacterTraits;
 
 namespace FliSan.GameObject
 {
@@ -12,6 +12,7 @@ namespace FliSan.GameObject
         private List<CFaction> factions_;
         private List<CCity> cities_;
         private List<CCharacter> characters_;
+        private CCharacterTraitDictionary traitDictionary_;
 
         private int gameTurn_;
 
@@ -21,6 +22,7 @@ namespace FliSan.GameObject
             this.factions_ = new List<CFaction>();
             this.cities_ = new List<CCity>();
             this.characters_ = new List<CCharacter>();
+            this.traitDictionary_ = new CCharacterTraitDictionary();
         }
 
         public void CreateGame(int _width, int _height)
@@ -50,6 +52,7 @@ namespace FliSan.GameObject
                     for (int j = 0; j < 5; j++)
                     {
                         CCharacter character = new CCharacter(this.characters_.Count + 1, faction, city);
+                        character.RandomGeneration(this.traitDictionary_);
                         this.characters_.Add(character);
                         faction.AddCharacter(character);
                         city.AddCharacter(character);                        
@@ -67,6 +70,7 @@ namespace FliSan.GameObject
                         for (int j = 0; j < 5; j++)
                         {
                             CCharacter character = new CCharacter(this.characters_.Count + 1, faction, city);
+                            character.RandomGeneration(this.traitDictionary_);
                             this.characters_.Add(character);
                             faction.AddCharacter(character);
                             city.AddCharacter(character);
@@ -101,6 +105,22 @@ namespace FliSan.GameObject
                     {
                         sb.Append("|\tX\t|");
                     }
+                }
+                sb.Append("\n");
+            }
+
+            sb.Append("\n");
+
+            for (int i = 0; i < this.characters_.Count; i++)
+            {
+                CCharacter character = this.characters_[i];
+                CFaction faction = character.Faction;
+                CCharacter evaluator = faction.Characters[0];
+                List<int> attributes = evaluator.Evaluate(character, this.traitDictionary_);
+                sb.Append("势力：" + character.Faction.ID + "\t" + "统率：" + attributes[0] + "(" + character.LeaderShip + ")" + "\t" + "武力：" + attributes[1] + "(" + character.CombatSkill + ")" + "\t" + "智力：" + attributes[2] + "(" + character.Stratagem + ")" + "\t" + "政治：" + attributes[3] + "(" + character.Politics + ")");
+                foreach (CCharacterTrait trait in character.Traits)
+                {
+                    sb.Append("\t" + trait.ToString());
                 }
                 sb.Append("\n");
             }

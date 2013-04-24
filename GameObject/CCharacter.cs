@@ -22,6 +22,8 @@ namespace FliSan.GameObject
 
         private List<CCharacterTrait> traits_;
 
+        private static Random rand = new Random();
+
         public CCharacter(int _ID, CFaction _faction, CCity _city)
         {
             this.ID_ = _ID;
@@ -29,6 +31,26 @@ namespace FliSan.GameObject
             this.city_ = _city;
 
             this.traits_ = new List<CCharacterTrait>();
+        }
+
+        /// <summary>
+        /// Generates a character randomly.
+        /// </summary>
+        /// <param name="_dictionary"></param>
+        public void RandomGeneration(CCharacterTraitDictionary _dictionary)
+        {
+            this.leaderShip_ = rand.Next(1, 21);
+            this.combatSkill_ = rand.Next(1, 21);
+            this.stratagem_ = rand.Next(1, 21);
+            this.politics_ = rand.Next(1, 21);
+
+            int origin = rand.Next(18);
+            int gender = rand.Next(18, 30);
+            int normal = _dictionary[gender] is CCharacterTraitMale ? rand.Next(30, 36) : rand.Next(30, 35);
+
+            this.traits_.Add(_dictionary[origin]);
+            this.traits_.Add(_dictionary[gender]);
+            this.traits_.Add(_dictionary[normal]);
         }
 
         /// <summary>
@@ -75,12 +97,12 @@ namespace FliSan.GameObject
         }
 
         /// <summary>
-        /// Evaluates "_that".</n>
+        /// Judges "_that".<br/>
         /// Gets the "opinion" of character "this" towards character "_that".
         /// </summary>
         /// <param name="_that"></param>
         /// <returns></returns>
-        public int Evaluate(CCharacter _that, CCharacterTraitDictionary _dictionary)
+        public int Judgement(CCharacter _that, CCharacterTraitDictionary _dictionary)
         {
             List<CCharacterTrait> likeList = new List<CCharacterTrait>();
             List<CCharacterTrait> hateList = new List<CCharacterTrait>();
@@ -104,6 +126,65 @@ namespace FliSan.GameObject
                 }
             }
             return evaluation;
+        }
+
+        /// <summary>
+        /// Evaluates "_that"<br/>
+        /// Gets the evaluation of attributes of character "_that", based on the judgement value.
+        /// </summary>
+        /// <param name="_that"></param>
+        /// <returns></returns>
+        public List<int> Evaluate(CCharacter _that, CCharacterTraitDictionary _dictionary)
+        {
+            List<int> evals = new List<int>();
+            evals.Add(_that.leaderShip_);
+            evals.Add(_that.combatSkill_);
+            evals.Add(_that.stratagem_);
+            evals.Add(_that.politics_);
+
+            int judgement = this.Judgement(_that, _dictionary);
+            int sign = Math.Sign(judgement);
+            float error = (20 - this.stratagem_) / 50.0f;
+
+            for (int i = 0; i < evals.Count; i++)
+            {
+                evals[i] += (int)(evals[i] * error + sign * judgement) * sign;
+                if (evals[i] < 1) evals[i] = 1;
+            }
+
+            return evals;
+        }
+
+        public int ID
+        {
+            get
+            {
+                return this.ID_;
+            }
+        }
+
+        public CFaction Faction
+        {
+            get
+            {
+                return this.faction_;
+            }
+            set
+            {
+                this.faction_ = value;
+            }
+        }
+
+        public CCity City
+        {
+            get
+            {
+                return this.city_;
+            }
+            set
+            {
+                this.city_ = value;
+            }
         }
 
         public int LeaderShip
