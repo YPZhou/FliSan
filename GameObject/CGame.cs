@@ -117,7 +117,7 @@ namespace FliSan.GameObject
                 CFaction faction = character.Faction;
                 CCharacter evaluator = faction.Characters[0];
                 List<int> attributes = evaluator.Evaluate(character, this.traitDictionary_);
-                sb.Append("势力：" + character.Faction.ID + "\t" + "统率：" + attributes[0] + "(" + character.LeaderShip + ")" + "\t" + "武力：" + attributes[1] + "(" + character.CombatSkill + ")" + "\t" + "智力：" + attributes[2] + "(" + character.Stratagem + ")" + "\t" + "政治：" + attributes[3] + "(" + character.Politics + ")");
+                sb.Append("势力：" + character.Faction.ID + "\t" + "统率：" + attributes[0] + "(" + character.LeaderShip + ")" + "\t" + "武力：" + attributes[1] + "(" + character.CombatSkill + ")" + "\t" + "智力：" + attributes[2] + "(" + character.Stratagem + ")" + "\t" + "政治：" + attributes[3] + "(" + character.Politics + ")" + "\t" + "相性：" + evaluator.Judgement(character, this.traitDictionary_));
                 foreach (CCharacterTrait trait in character.Traits)
                 {
                     sb.Append("\t" + trait.ToString());

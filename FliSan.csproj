@@ -74,6 +74,8 @@
   <ItemGroup>
     <Compile Include="GameAI\CGameAIManager.cs" />
     <Compile Include="GameMain.cs" />
+    <Compile Include="GameObject\CArmy.cs" />
+    <Compile Include="GameObject\CBattle.cs" />
     <Compile Include="GameObject\CCharacter.cs" />
     <Compile Include="GameObject\CCity.cs" />
     <Compile Include="GameObject\CFaction.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="GameObject\CharacterTraits\CCharacterTrait9.cs" />
     <Compile Include="GameObject\CharacterTraits\CCharacterTraitDictionary.cs" />
     <Compile Include="GameObject\CMap.cs" />
+    <Compile Include="GameObject\CTroop.cs" />
     <Compile Include="GameUI\CGameUIManager.cs" />
     <Compile Include="GameUI\CUIMapRenderer.cs" />
     <Compile Include="GameUI\IGameUI.cs" />
