@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
@@ -11,11 +8,13 @@ namespace FliSan.GameObject.CharacterTraits
         public CCharacterTrait30()
             : base()
         {
+            // hates character of same trait
+            this.hateList_.Add(30);
         }
 
         public override String ToString()
         {
-            throw new NotImplementedException();
+            return "病气";
         }
     }
 }

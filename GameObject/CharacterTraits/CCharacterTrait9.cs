@@ -1,26 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
     // 忍者出身
     class CCharacterTrait9 : CCharacterTraitSengoku
     {
-        public List<CCharacterTrait> Likes()
+        public CCharacterTrait9()
+            : base()
         {
-            throw new NotImplementedException();
-        }
+            // likes character of same origin
+            this.likeList_.Add(9);
 
-        public List<CCharacterTrait> Hates()
-        {
-            throw new NotImplementedException();
+            // hates character of different origins
+            this.hateList_.Add(0);
+            this.hateList_.Add(1);
+            this.hateList_.Add(2);
+            this.hateList_.Add(3);
+            this.hateList_.Add(4);
+            this.hateList_.Add(5);
+            this.hateList_.Add(6);
+            this.hateList_.Add(7);
+            this.hateList_.Add(8);
+            this.hateList_.Add(10);
+            this.hateList_.Add(11);
+            this.hateList_.Add(12);
+            this.hateList_.Add(13);
+            this.hateList_.Add(14);
+            this.hateList_.Add(15);
+            this.hateList_.Add(16);
+            this.hateList_.Add(17);
         }
 
         public override String ToString()
         {
-            throw new NotImplementedException();
+            return "忍者";
         }
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FliSan.GameObject.CharacterTraits
 {
@@ -90,42 +88,42 @@ namespace FliSan.GameObject.CharacterTraits
             this.traitIndexInt_.Add(35, this.traitList_[35]);
 
             this.traitIndexStr_ = new Dictionary<string, CCharacterTrait>();
-            this.traitIndexStr_.Add("", this.traitList_[0]);
-            this.traitIndexStr_.Add("", this.traitList_[1]);
-            this.traitIndexStr_.Add("", this.traitList_[2]);
-            this.traitIndexStr_.Add("", this.traitList_[3]);
-            this.traitIndexStr_.Add("", this.traitList_[4]);
-            this.traitIndexStr_.Add("", this.traitList_[5]);
-            this.traitIndexStr_.Add("", this.traitList_[6]);
-            this.traitIndexStr_.Add("", this.traitList_[7]);
-            this.traitIndexStr_.Add("", this.traitList_[8]);
-            this.traitIndexStr_.Add("", this.traitList_[9]);
-            this.traitIndexStr_.Add("", this.traitList_[10]);
-            this.traitIndexStr_.Add("", this.traitList_[11]);
-            this.traitIndexStr_.Add("", this.traitList_[12]);
-            this.traitIndexStr_.Add("", this.traitList_[13]);
-            this.traitIndexStr_.Add("", this.traitList_[14]);
-            this.traitIndexStr_.Add("", this.traitList_[15]);
-            this.traitIndexStr_.Add("", this.traitList_[16]);
-            this.traitIndexStr_.Add("", this.traitList_[17]);
-            this.traitIndexStr_.Add("", this.traitList_[18]);
-            this.traitIndexStr_.Add("", this.traitList_[19]);
-            this.traitIndexStr_.Add("", this.traitList_[20]);
-            this.traitIndexStr_.Add("", this.traitList_[21]);
-            this.traitIndexStr_.Add("", this.traitList_[22]);
-            this.traitIndexStr_.Add("", this.traitList_[23]);
-            this.traitIndexStr_.Add("", this.traitList_[24]);
-            this.traitIndexStr_.Add("", this.traitList_[25]);
-            this.traitIndexStr_.Add("", this.traitList_[26]);
-            this.traitIndexStr_.Add("", this.traitList_[27]);
-            this.traitIndexStr_.Add("", this.traitList_[28]);
-            this.traitIndexStr_.Add("", this.traitList_[29]);
-            this.traitIndexStr_.Add("", this.traitList_[30]);
-            this.traitIndexStr_.Add("", this.traitList_[31]);
-            this.traitIndexStr_.Add("", this.traitList_[32]);
-            this.traitIndexStr_.Add("", this.traitList_[33]);
-            this.traitIndexStr_.Add("", this.traitList_[34]);
-            this.traitIndexStr_.Add("", this.traitList_[35]);
+            this.traitIndexStr_.Add("汉官", this.traitList_[0]);
+            this.traitIndexStr_.Add("诸侯", this.traitList_[1]);
+            this.traitIndexStr_.Add("英杰", this.traitList_[2]);
+            this.traitIndexStr_.Add("盗贼", this.traitList_[3]);
+            this.traitIndexStr_.Add("富绅", this.traitList_[4]);
+            this.traitIndexStr_.Add("文豪", this.traitList_[5]);
+            this.traitIndexStr_.Add("公卿", this.traitList_[6]);
+            this.traitIndexStr_.Add("武士", this.traitList_[7]);
+            this.traitIndexStr_.Add("僧侣", this.traitList_[8]);
+            this.traitIndexStr_.Add("忍者", this.traitList_[9]);
+            this.traitIndexStr_.Add("商人", this.traitList_[10]);
+            this.traitIndexStr_.Add("茶人", this.traitList_[11]);
+            this.traitIndexStr_.Add("领主", this.traitList_[12]);
+            this.traitIndexStr_.Add("骑士", this.traitList_[13]);
+            this.traitIndexStr_.Add("学者", this.traitList_[14]);
+            this.traitIndexStr_.Add("教廷", this.traitList_[15]);
+            this.traitIndexStr_.Add("海盗", this.traitList_[16]);
+            this.traitIndexStr_.Add("工匠", this.traitList_[17]);
+            this.traitIndexStr_.Add("武勇", this.traitList_[18]);
+            this.traitIndexStr_.Add("智谋", this.traitList_[19]);
+            this.traitIndexStr_.Add("忠义", this.traitList_[20]);
+            this.traitIndexStr_.Add("仁德", this.traitList_[21]);
+            this.traitIndexStr_.Add("礼仪", this.traitList_[22]);
+            this.traitIndexStr_.Add("守信", this.traitList_[23]);
+            this.traitIndexStr_.Add("萝莉", this.traitList_[24]);
+            this.traitIndexStr_.Add("御姐", this.traitList_[25]);
+            this.traitIndexStr_.Add("人妻", this.traitList_[26]);
+            this.traitIndexStr_.Add("女仆", this.traitList_[27]);
+            this.traitIndexStr_.Add("魔法少女", this.traitList_[28]);
+            this.traitIndexStr_.Add("姬", this.traitList_[29]);
+            this.traitIndexStr_.Add("病气", this.traitList_[30]);
+            this.traitIndexStr_.Add("笨蛋", this.traitList_[31]);
+            this.traitIndexStr_.Add("战斗力5", this.traitList_[32]);
+            this.traitIndexStr_.Add("傲娇", this.traitList_[33]);
+            this.traitIndexStr_.Add("抖M", this.traitList_[34]);
+            this.traitIndexStr_.Add("伪娘", this.traitList_[35]);
         }
 
         public CCharacterTrait this[int _index]

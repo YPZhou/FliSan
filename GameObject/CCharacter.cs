@@ -39,6 +39,7 @@ namespace FliSan.GameObject
         {
             bool hasOrigin = false;
             bool hasGender = false;
+            bool hasFemale = false;
             foreach (CCharacterTrait trait in this.traits_)
             {
                 if (trait is CCharacterTraitOrigin)
@@ -49,22 +50,25 @@ namespace FliSan.GameObject
                 {
                     hasGender = true;
                 }
-            }
-
-            if (hasOrigin)
-            {
-                if (_trait is CCharacterTraitOrigin)
+                if (trait is CCharacterTraitFemale)
                 {
-                    return;
+                    hasFemale = true;
                 }
             }
 
-            if (hasGender)
+            if (hasOrigin && _trait is CCharacterTraitOrigin)
+            {                
+                return;
+            }
+
+            if (hasGender && _trait is CCharacterTraitGender)
             {
-                if (_trait is CCharacterTraitGender)
-                {
-                    return;
-                }
+                return;
+            }
+
+            if (hasFemale && _trait is CCharacterTrait35)
+            {
+                return;
             }
 
             this.traits_.Add(_trait);
