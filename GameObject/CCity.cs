@@ -162,6 +162,18 @@ namespace FliSan.GameObject
             }
         }
 
+        public int Soldier
+        {
+            get
+            {
+                return this.soldier_;
+            }
+            set
+            {
+                this.soldier_ = value;
+            }
+        }
+
         public override bool Equals(Object _that)
         {
             if (_that is CCity)
