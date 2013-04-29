@@ -25,7 +25,7 @@ namespace FliSan.GameObject
             }
         }
 
-        public int GetDamage(int _soldierInTotal)
+        public int GetDamage(int _enemySoldierInTotal)
         {
             float troopCountFacter = 1;
             if (this.troops_.Count == 5)
@@ -43,7 +43,7 @@ namespace FliSan.GameObject
             int damage = 0;
             foreach (CTroop troop in this.troops_)
             {
-                damage += troop.GetDamage(_soldierInTotal);
+                damage += troop.GetDamage(this.SoldierInTotal, _enemySoldierInTotal);
             }
             return (int)(damage * troopCountFacter);
         }
@@ -58,9 +58,9 @@ namespace FliSan.GameObject
             return moraleDamage;
         }
 
-        public int GetCityDamage(int _soldierInTotal)
+        public int GetCityDamage(int _enemySoldierInTotal)
         {
-            return this.city_.GetCityDamage(_soldierInTotal);
+            return this.city_.GetCityDamage(this.SoldierInTotal, _enemySoldierInTotal);
         }
 
         public int GetCityMoraleDamage()
@@ -97,6 +97,12 @@ namespace FliSan.GameObject
 
         public void ConsumeFood()
         {
+            // need to complete rules for food consumption first
+        }
+
+        public void SoldierFlee()
+        {
+            // need to complete rules for soldier flee first
         }
 
         public IEnumerator<CTroop> Troops

@@ -30,6 +30,12 @@ namespace FliSan.GameObject
             {
                 NonSiegeUpdate();
             }
+
+            foreach (CArmy army in this.armies_)
+            {
+                army.ConsumeFood();
+                army.SoldierFlee();
+            }
         }
 
         private void SiegeUpdate()
@@ -53,9 +59,6 @@ namespace FliSan.GameObject
                     {
                         this.armies_[1].ApplyMoraleDamage(moraleDmg1);
                     }
-
-                    this.armies_[0].ConsumeFood();
-                    this.armies_[1].ConsumeFood();
                 }
                 else if (this.armies_[1].IsAttacking)
                 {
@@ -74,9 +77,6 @@ namespace FliSan.GameObject
                     {
                         this.armies_[1].ApplyMoraleDamage(moraleDmg1);
                     }
-
-                    this.armies_[0].ConsumeFood();
-                    this.armies_[1].ConsumeFood();
                 }
                 
             }
@@ -97,9 +97,6 @@ namespace FliSan.GameObject
 
                 this.armies_[1].ApplyDamage(dmg1);
                 this.armies_[1].ApplyMoraleDamage(moraleDmg1);
-
-                this.armies_[0].ConsumeFood();
-                this.armies_[1].ConsumeFood();
             }
         }
 
@@ -174,7 +171,7 @@ namespace FliSan.GameObject
 
 迎战
 部队数量修正 = 部队1或2 1， 部队3 1.1， 部队4 1.2， 部队5 1.3
-兵力因子 = min((兵力 / 100) × (0.5 + (总兵力 / 防守方总兵力) / 3), 总兵力 / 10)
+兵力因子 = min((兵力 / 100) × (0.5 + (总兵力 / 防守方总兵力) / 3), 兵力 / 10)
 武力因子 = 1 + (武力 - 8) / 24
 
 伤害 = sum(兵力因子 × 武力因子) × 部队数量修正

@@ -127,7 +127,7 @@ namespace FliSan.GameObject
             }
         }
 
-        public int GetCityDamage(int _soldierInTotal)
+        public int GetCityDamage(int _soldierInTotal, int _enemySoldierInTotal)
         {
             return 0;
         }
@@ -139,6 +139,7 @@ namespace FliSan.GameObject
 
         public void ApplyCityDamage(int _damage)
         {
+            // need to complete rules for city development first
         }
 
         public void ApplyCityMoraleDamage(int _moraleDamage)
