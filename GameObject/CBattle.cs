@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace FliSan.GameObject
 {
@@ -51,7 +48,14 @@ namespace FliSan.GameObject
                     this.armies_[0].ApplyMoraleDamage(moraleDmg2);
 
                     this.armies_[1].ApplyCityDamage(dmg1);
-                    this.armies_[1].ApplyMoraleDamage(moraleDmg1);
+
+                    if (this.armies_[1].IsCityDefenceBroken)
+                    {
+                        this.armies_[1].ApplyMoraleDamage(moraleDmg1);
+                    }
+
+                    this.armies_[0].ConsumeFood();
+                    this.armies_[1].ConsumeFood();
                 }
                 else if (this.armies_[1].IsAttacking)
                 {
@@ -65,7 +69,14 @@ namespace FliSan.GameObject
                     this.armies_[0].ApplyMoraleDamage(moraleDmg2);
 
                     this.armies_[1].ApplyDamage(dmg1);
-                    this.armies_[1].ApplyMoraleDamage(moraleDmg1);
+
+                    if (this.armies_[1].IsCityDefenceBroken)
+                    {
+                        this.armies_[1].ApplyMoraleDamage(moraleDmg1);
+                    }
+
+                    this.armies_[0].ConsumeFood();
+                    this.armies_[1].ConsumeFood();
                 }
                 
             }
@@ -86,6 +97,9 @@ namespace FliSan.GameObject
 
                 this.armies_[1].ApplyDamage(dmg1);
                 this.armies_[1].ApplyMoraleDamage(moraleDmg1);
+
+                this.armies_[0].ConsumeFood();
+                this.armies_[1].ConsumeFood();
             }
         }
 

@@ -27,33 +27,75 @@ namespace FliSan.GameObject
 
         public int GetDamage(int _soldierInTotal)
         {
-            return 0;
+            float troopCountFacter = 1;
+            if (this.troops_.Count == 5)
+            {
+                troopCountFacter = 1.3f;
+            }
+            else if (troops_.Count == 4)
+            {
+                troopCountFacter = 1.2f;
+            }
+            else if (troops_.Count == 3)
+            {
+                troopCountFacter = 1.1f;
+            }
+            int damage = 0;
+            foreach (CTroop troop in this.troops_)
+            {
+                damage += troop.GetDamage(_soldierInTotal);
+            }
+            return (int)(damage * troopCountFacter);
         }
 
         public int GetMoraleDamage()
         {
-            return 0;
+            int moraleDamage = 0;
+            foreach (CTroop troop in this.troops_)
+            {
+                moraleDamage += troop.GetMoraleDamage();
+            }
+            return moraleDamage;
         }
 
         public int GetCityDamage(int _soldierInTotal)
         {
-            return 0;
+            return this.city_.GetCityDamage(_soldierInTotal);
         }
 
         public int GetCityMoraleDamage()
         {
-            return 0;
+            return this.city_.GetCityMoraleDamage();
         }
 
         public void ApplyDamage(int _damage)
         {
+            int damage = (int)Math.Ceiling(_damage / (float)this.troops_.Count);
+            foreach (CTroop troop in this.troops_)
+            {
+                troop.ApplyDamage(damage);
+            }
         }
 
-        public void ApplyMoraleDamage(int _damage)
+        public void ApplyMoraleDamage(int _moraleDamage)
         {
+            foreach (CTroop troop in this.troops_)
+            {
+                troop.ApplyMoraleDamage(_moraleDamage);
+            }
         }
 
         public void ApplyCityDamage(int _damage)
+        {
+            this.city_.ApplyCityDamage(_damage);
+        }
+
+        public void ApplyCityMoraleDamage(int _moraleDamage)
+        {
+            this.city_.ApplyCityMoraleDamage(_moraleDamage);
+        }
+
+        public void ConsumeFood()
         {
         }
 
@@ -121,6 +163,14 @@ namespace FliSan.GameObject
                 {
                     return this.city_.Soldier > 0;
                 }
+            }
+        }
+
+        public bool IsCityDefenceBroken
+        {
+            get
+            {
+                return this.IsCityDefenceBroken;
             }
         }
 

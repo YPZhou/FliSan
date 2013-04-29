@@ -18,6 +18,24 @@ namespace FliSan.GameObject
             
         }
 
+        public int GetDamage(int _soldierInTotal)
+        {
+            return 0;
+        }
+
+        public int GetMoraleDamage()
+        {
+            return 0;
+        }
+
+        public void ApplyDamage(int _damage)
+        {
+        }
+
+        public void ApplyMoraleDamage(int _moraleDamage)
+        {
+        }
+
         public CCharacter Character
         {
             get
@@ -76,6 +94,6 @@ namespace FliSan.GameObject
             {
                 this.morale_ = value;
             }
-        }
+        }        
     }
 }

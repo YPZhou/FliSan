@@ -29,6 +29,7 @@ namespace FliSan.GameObject
 
         private int cityDefence_;
         private int soldier_;
+        private int morale_;
 
         public CCity(int _ID, CFaction _faction)
         {
@@ -126,6 +127,24 @@ namespace FliSan.GameObject
             }
         }
 
+        public int GetCityDamage(int _soldierInTotal)
+        {
+            return 0;
+        }
+
+        public int GetCityMoraleDamage()
+        {
+            return 0;
+        }
+
+        public void ApplyCityDamage(int _damage)
+        {
+        }
+
+        public void ApplyCityMoraleDamage(int _moraleDamage)
+        {
+        }
+
         public CFaction Faction
         {
             get
@@ -162,6 +181,18 @@ namespace FliSan.GameObject
             }
         }
 
+        public int Food
+        {
+            get
+            {
+                return this.food_;
+            }
+            set
+            {
+                this.food_ = value;
+            }
+        }
+
         public int Soldier
         {
             get
@@ -171,6 +202,26 @@ namespace FliSan.GameObject
             set
             {
                 this.soldier_ = value;
+            }
+        }
+
+        public int Morale
+        {
+            get
+            {
+                return this.morale_;
+            }
+            set
+            {
+                this.morale_ = value;
+            }
+        }
+
+        public bool IsCityDefenceBroken
+        {
+            get
+            {
+                return this.cityDefence_ <= 0;
             }
         }
 
