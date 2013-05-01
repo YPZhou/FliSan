@@ -62,6 +62,8 @@ namespace FliSan.GameObject
                     y = rand_.Next(this.height_);
                 }
                 this.cities_[x, y] = _city;
+                _city.MapCoordX = x;
+                _city.MapCoordY = y;
             }
         }
 

@@ -20,8 +20,6 @@ namespace FliSan.GameObject
         private int population_;
         private int gold_;
         private int food_;
-        private int populationLoseCounter_;
-        private int populationGainCounter_;
 
         private double foodIncRate_;
         private double foodConsumpRate_;
@@ -38,8 +36,18 @@ namespace FliSan.GameObject
             this.characters_ = new List<CCharacter>();
             this.mapCoordX_ = -1;
             this.mapCoordY_ = -1;
-            this.populationLoseCounter_ = 1;
-            this.populationGainCounter_ = 1;
+
+            this.maxAgriculturePopulation_ = 50000;
+            this.population_ = 3000;
+            this.gold_ = 1000;
+            this.food_ = 5000;
+            this.foodIncRate_ = 1.5;
+            this.foodConsumpRate_ = 0.1;
+            this.goldIncRate_ = 1.0;
+
+            this.cityDefence_ = 1000;
+            this.soldier_ = 500;
+            this.morale_ = 100;
         }
 
         public void Update(int _gameTurn)
@@ -47,18 +55,25 @@ namespace FliSan.GameObject
             // food updates
             int foodConsumption = (int)Math.Floor(this.population_ * this.foodConsumpRate_);
             int foodIncrease = 0;
-            if (_gameTurn % 180 == 0)
+
+            // check food increase every month (6 turns)
+            if (_gameTurn % 6 == 0)
             {
-                int workingPopulation = this.population_ - this.soldier_;
-                if (workingPopulation > this.maxAgriculturePopulation_)
+                // food increase rate is doubled in autumn
+                if (_gameTurn % 72 > 36 && _gameTurn % 72 < 55)
                 {
-                    workingPopulation = this.maxAgriculturePopulation_;
+                    foodIncrease = (int)Math.Floor(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ * 2);
                 }
-                foodIncrease = (int)Math.Floor(workingPopulation * this.foodIncRate_);
+                else
+                {
+                    foodIncrease = (int)Math.Floor(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_);
+                }
             }
             this.food_ += foodIncrease - foodConsumption;
+            int foodShortage = 0;
             if (this.food_ < 0)
             {
+                foodShortage = -this.food_;
                 this.food_ = 0;
             }
 
@@ -66,48 +81,31 @@ namespace FliSan.GameObject
             // and decreases once city runs out of food
             if (this.food_ > 0)
             {
-                // population increase
-                this.populationLoseCounter_ = 1; // reset populationLoseCounter
-                if (this.populationGainCounter_ < int.MaxValue - this.population_)
+                // check population increase every month (6 turns)
+                if (_gameTurn % 6 == 0)
                 {
-                    this.population_ += this.populationGainCounter_;
+                    this.population_ += (int)Math.Floor(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 150.0);
                 }
-                this.populationGainCounter_++;
             }
             else
             {
-                // population decrease
-                this.populationGainCounter_ = 1; // reset populationGainCounter
-                if (this.population_ > 0)
-                {
-                    this.population_ -= this.populationLoseCounter_;
-                    if (this.soldier_ > 0)
-                    {
-                        this.soldier_ -= this.populationLoseCounter_;
-                        if (this.soldier_ < 0)
-                        {
-                            this.soldier_ = 0;
-                        }
-                    }
-                    if (this.population_ < 0)
-                    {
-                        this.population_ = 0;
-                    }
-
-                    this.populationLoseCounter_++;
-                }
+                // check population decrease every 5 days (1 turn)
+                this.population_ = Math.Max(this.population_ - (int)Math.Floor(foodShortage / 1.5), 0);
+                this.soldier_ = Math.Max(this.soldier_ - (int)Math.Floor(foodShortage / 1.5), 0);
             }
 
-            // gold updates
-            int goldIncrease = 0;
-            if (_gameTurn % 30 == 0)
+            // gold updates            
+            // check gold increase every 5 days (1 turn)
+
+            // gold increase rate is doubled in winter
+            if (_gameTurn % 72 > 54 && _gameTurn % 72 <= 71)
             {
-                if (this.food_ > 0)
-                {
-                    goldIncrease = (int)Math.Floor(this.food_ * this.goldIncRate_);
-                }
+                this.gold_ += (int)Math.Floor(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_ * 2);
             }
-            this.gold_ += goldIncrease;
+            else
+            {
+                this.gold_ += (int)Math.Floor(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_);
+            }
         }
 
         public void AddCharacter(CCharacter _character)
@@ -182,6 +180,18 @@ namespace FliSan.GameObject
             }
         }
 
+        public int Gold
+        {
+            get
+            {
+                return this.gold_;
+            }
+            set
+            {
+                this.gold_ = value;
+            }
+        }
+
         public int Food
         {
             get
@@ -191,6 +201,18 @@ namespace FliSan.GameObject
             set
             {
                 this.food_ = value;
+            }
+        }
+
+        public int CityDefence
+        {
+            get
+            {
+                return this.cityDefence_;
+            }
+            set
+            {
+                this.cityDefence_ = value;
             }
         }
 
