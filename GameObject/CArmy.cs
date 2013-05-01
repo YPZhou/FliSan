@@ -60,7 +60,7 @@ namespace FliSan.GameObject
 
         public int GetCityDamage(int _enemySoldierInTotal)
         {
-            return this.city_.GetCityDamage(this.SoldierInTotal, _enemySoldierInTotal);
+            return this.city_.GetCityDamage(_enemySoldierInTotal);
         }
 
         public int GetCityMoraleDamage()
@@ -95,15 +95,15 @@ namespace FliSan.GameObject
             this.city_.ApplyCityMoraleDamage(_moraleDamage);
         }
 
-        public void ConsumeFood()
-        {
-            // need to complete rules for food consumption first
-        }
+        //public void ConsumeFood()
+        //{
+        //    // need to complete rules for food consumption first
+        //}
 
-        public void SoldierFlee()
-        {
-            // need to complete rules for soldier flee first
-        }
+        //public void SoldierFlee()
+        //{
+        //    // need to complete rules for soldier flee first
+        //}
 
         public IEnumerator<CTroop> Troops
         {

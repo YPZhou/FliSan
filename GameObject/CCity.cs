@@ -27,6 +27,7 @@ namespace FliSan.GameObject
 
         private int cityDefence_;
         private int soldier_;
+        private int injuredSoldier_;
         private int morale_;
 
         public CCity(int _ID, CFaction _faction)
@@ -47,13 +48,14 @@ namespace FliSan.GameObject
 
             this.cityDefence_ = 1000;
             this.soldier_ = 500;
+            this.injuredSoldier_ = 0;
             this.morale_ = 100;
         }
 
         public void Update(int _gameTurn)
         {
             // food updates
-            int foodConsumption = (int)Math.Floor(this.population_ * this.foodConsumpRate_);
+            int foodConsumption = (int)Math.Ceiling(this.population_ * this.foodConsumpRate_);
             int foodIncrease = 0;
 
             // check food increase every month (6 turns)
@@ -62,11 +64,11 @@ namespace FliSan.GameObject
                 // food increase rate is doubled in autumn
                 if (_gameTurn % 72 > 36 && _gameTurn % 72 < 55)
                 {
-                    foodIncrease = (int)Math.Floor(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ * 2);
+                    foodIncrease = (int)Math.Ceiling(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ * 2);
                 }
                 else
                 {
-                    foodIncrease = (int)Math.Floor(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_);
+                    foodIncrease = (int)Math.Ceiling(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_);
                 }
             }
             this.food_ += foodIncrease - foodConsumption;
@@ -84,14 +86,14 @@ namespace FliSan.GameObject
                 // check population increase every month (6 turns)
                 if (_gameTurn % 6 == 0)
                 {
-                    this.population_ += (int)Math.Floor(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 150.0);
+                    this.population_ += (int)Math.Ceiling(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 150.0);
                 }
             }
             else
             {
                 // check population decrease every 5 days (1 turn)
-                this.population_ = Math.Max(this.population_ - (int)Math.Floor(foodShortage / 1.5), 0);
-                this.soldier_ = Math.Max(this.soldier_ - (int)Math.Floor(foodShortage / 1.5), 0);
+                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(foodShortage / 1.5), 0);
+                this.soldier_ = Math.Max(this.soldier_ - (int)Math.Ceiling(foodShortage / 1.5), 0);
             }
 
             // gold updates            
@@ -100,11 +102,11 @@ namespace FliSan.GameObject
             // gold increase rate is doubled in winter
             if (_gameTurn % 72 > 54 && _gameTurn % 72 <= 71)
             {
-                this.gold_ += (int)Math.Floor(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_ * 2);
+                this.gold_ += (int)Math.Ceiling(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_ * 2);
             }
             else
             {
-                this.gold_ += (int)Math.Floor(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_);
+                this.gold_ += (int)Math.Ceiling(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_);
             }
         }
 
@@ -125,23 +127,94 @@ namespace FliSan.GameObject
             }
         }
 
-        public int GetCityDamage(int _soldierInTotal, int _enemySoldierInTotal)
+        public int GetCityDamage(int _enemySoldierInTotal)
         {
-            return 0;
+            int maxLeaderShip = 0;
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.LeaderShip > maxLeaderShip)
+                {
+                    maxLeaderShip = character.LeaderShip;
+                }
+            }
+            double leaderShipFactor = 1 + (maxLeaderShip - 8) / 24.0;
+
+            return (int)Math.Ceiling(Math.Min(this.soldier_ / 100.0f * (0.5f + this.soldier_ / _enemySoldierInTotal / 3.0), this.soldier_ / 10.0) * leaderShipFactor);
         }
 
         public int GetCityMoraleDamage()
         {
-            return 0;
+            int maxStratagem = 0;
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.Stratagem > maxStratagem)
+                {
+                    maxStratagem = character.Stratagem;
+                }
+            }
+            double stratagemFactor = 1 + (maxStratagem - 8) / 24.0;
+
+            return (int)Math.Ceiling(Math.Min(this.characters_.Count, 3) * stratagemFactor);
         }
 
         public void ApplyCityDamage(int _damage)
         {
-            // need to complete rules for city development first
+            int maxLeaderShip = 0;
+            int maxPolitics = 0;
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.LeaderShip > maxLeaderShip)
+                {
+                    maxLeaderShip = character.LeaderShip;
+                }
+                if (character.Politics > maxPolitics)
+                {
+                    maxPolitics = character.Politics;
+                }
+            }
+            double leaderShipFactor = 1 - (maxLeaderShip - 8) / 24.0;
+            double politicsFactor = 1 - (maxPolitics - 8) / 24.0;
+
+            if (this.cityDefence_ > 0)
+            {
+                this.cityDefence_ = Math.Max(this.cityDefence_ - (int)Math.Ceiling(_damage * politicsFactor), 0);
+                int soldierLoss = Math.Min((int)Math.Ceiling(_damage / 10.0 * leaderShipFactor), this.soldier_);
+                this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
+                this.soldier_ -= soldierLoss;
+
+                this.foodIncRate_ = Math.Max(this.foodIncRate_ - (int)Math.Ceiling(_damage / 100000.0 * leaderShipFactor), 0);
+                this.goldIncRate_ = Math.Max(this.goldIncRate_ - (int)Math.Ceiling(_damage / 100000.0 * leaderShipFactor), 0);
+                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 100 * leaderShipFactor) - soldierLoss, this.soldier_);
+            }
+            else
+            {
+                int soldierLoss = Math.Min((int)Math.Ceiling(_damage * leaderShipFactor), this.soldier_);
+                this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
+                this.soldier_ -= soldierLoss;
+
+                this.foodIncRate_ = Math.Max(this.foodIncRate_ - (int)Math.Ceiling(_damage / 10000.0 * leaderShipFactor), 0);
+                this.goldIncRate_ = Math.Max(this.goldIncRate_ - (int)Math.Ceiling(_damage / 10000.0 * leaderShipFactor), 0);
+                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 10 * leaderShipFactor) - soldierLoss, this.soldier_);
+            }
         }
 
         public void ApplyCityMoraleDamage(int _moraleDamage)
         {
+            // city will not lose morale when city defence is not broken
+            if (this.cityDefence_ <= 0)
+            {
+                int maxStratagem = 0;
+                foreach (CCharacter character in this.characters_)
+                {
+                    if (character.Stratagem > maxStratagem)
+                    {
+                        maxStratagem = character.Politics;
+                    }
+                }
+                double stratagemFactor = 1 - (maxStratagem - 8) / 24.0;
+
+                this.morale_ = Math.Max(this.morale_ - (int)Math.Ceiling(_moraleDamage * stratagemFactor), 0);
+            }
         }
 
         public CFaction Faction

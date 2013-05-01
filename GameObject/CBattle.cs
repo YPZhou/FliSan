@@ -31,11 +31,11 @@ namespace FliSan.GameObject
                 NonSiegeUpdate();
             }
 
-            foreach (CArmy army in this.armies_)
-            {
-                army.ConsumeFood();
-                army.SoldierFlee();
-            }
+            //foreach (CArmy army in this.armies_)
+            //{
+            //    army.ConsumeFood();
+            //    army.SoldierFlee();
+            //}
         }
 
         private void SiegeUpdate()

@@ -20,29 +20,29 @@ namespace FliSan.GameObject
 
         public int GetDamage(int _soldierInTotal, int _enemySoldierInTotal)
         {
-            float soldierFactor = Math.Min(this.soldier_ / 100.0f * (0.5f + _soldierInTotal / (float)_enemySoldierInTotal / 3.0f), this.soldier_ / 10.0f);
-            float characterFactor = 1 + (this.character_.CombatSkill - 8) / 24.0f;
-            return (int)(soldierFactor * characterFactor);
+            double soldierFactor = Math.Min(this.soldier_ / 100.0f * (0.5f + _soldierInTotal / _enemySoldierInTotal / 3.0), this.soldier_ / 10.0);
+            double characterFactor = 1 + (this.character_.CombatSkill - 8) / 24.0;
+            return (int)Math.Ceiling(soldierFactor * characterFactor);
         }
 
         public int GetMoraleDamage()
         {
-            return (int)(1 + (this.character_.Stratagem - 8) / 24.0f);
+            return (int)(1 + (this.character_.Stratagem - 8) / 24.0);
         }
 
         public void ApplyDamage(int _damage)
         {
-            float characterFactor = 1 - (this.character_.LeaderShip - 8) / 24.0f;
-            int soldierLoss = Math.Min((int)(_damage * characterFactor), this.soldier_);
-            int soldierInjured = (int)(soldierLoss * (this.morale_ / 200.0f));
+            double characterFactor = 1 - (this.character_.LeaderShip - 8) / 24.0;
+            int soldierLoss = Math.Min((int)Math.Ceiling(_damage * characterFactor), this.soldier_);
+            int soldierInjured = (int)Math.Ceiling(soldierLoss * (this.morale_ / 200.0f));
             this.soldier_ -= soldierLoss;
             this.injuredSoldier_ += soldierInjured;
         }
 
         public void ApplyMoraleDamage(int _moraleDamage)
         {
-            float characterFactor = 1 - (this.character_.Stratagem - 8) / 24.0f;
-            int moraleLoss = Math.Min((int)(_moraleDamage * characterFactor), this.morale_);
+            double characterFactor = 1 - (this.character_.Stratagem - 8) / 24.0;
+            int moraleLoss = Math.Min((int)Math.Ceiling(_moraleDamage * characterFactor), this.morale_);
             this.morale_ -= moraleLoss;
         }
 
