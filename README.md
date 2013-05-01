@@ -15,3 +15,10 @@ FliSan 开源三国志
 2. IDE：Visual Studiu 2010
 
 3. 多媒体库：[SFML.Net](http://github.com/LaurentGomila/SFML.Net)
+
+项目进度
+======
+
+1. 进行中：游戏系统
+
+2. 计划：图形界面，AI
