@@ -142,9 +142,29 @@ a.button small {
   display: block;
   font-size: 11px;
 }
+a.button2 {
+  width: 134px;
+  height: 58px;
+  line-height: 1.2;
+  font-size: 21px;
+  color: #fff;
+  padding-left: 68px;
+  padding-top: 22px;
+  font-family: 'Architects Daughter', 'Helvetica Neue', Helvetica, Arial, serif; 
+}
+a.button2 small {
+  display: block;
+  font-size: 11px;
+}
 header a.button {
   position: absolute;
   right: 0;
+  top: 0;
+  background: transparent url(../images/github-button.png) 0 0 no-repeat;
+}
+header a.button2 {
+  position: absolute;
+  right: 250px;
   top: 0;
   background: transparent url(../images/github-button.png) 0 0 no-repeat;
 }
