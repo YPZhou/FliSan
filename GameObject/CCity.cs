@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using FliSan.GameObject.GameCommands;
+
 namespace FliSan.GameObject
 {
     class CCity
@@ -30,6 +32,8 @@ namespace FliSan.GameObject
         private int injuredSoldier_;
         private int morale_;
 
+        private List<IGameCommand> gameCommands_;
+
         public CCity(int _ID, CFaction _faction)
         {
             this.ID_ = _ID;
@@ -50,10 +54,18 @@ namespace FliSan.GameObject
             this.soldier_ = 500;
             this.injuredSoldier_ = 0;
             this.morale_ = 100;
+
+            this.gameCommands_ = new List<IGameCommand>();
         }
 
         public void Update(int _gameTurn)
         {
+            foreach (IGameCommand gameCommand in this.gameCommands_)
+            {
+                gameCommand.Execute();
+            }
+            this.gameCommands_.Clear();
+
             // food updates
             int foodConsumption = (int)Math.Ceiling(this.population_ * this.foodConsumpRate_);
             int foodIncrease = 0;
@@ -125,6 +137,11 @@ namespace FliSan.GameObject
             {
                 this.characters_.Add(_character);
             }
+        }
+
+        public void PushGameCommand(IGameCommand _gameCommand)
+        {
+            this.gameCommands_.Add(_gameCommand);
         }
 
         public int GetCityDamage(int _enemySoldierInTotal)
@@ -217,6 +234,14 @@ namespace FliSan.GameObject
             }
         }
 
+        public int ID
+        {
+            get
+            {
+                return this.ID_;
+            }
+        }
+
         public CFaction Faction
         {
             get
@@ -286,6 +311,18 @@ namespace FliSan.GameObject
             set
             {
                 this.cityDefence_ = value;
+            }
+        }
+
+        public double FoodIncreaseRate
+        {
+            get
+            {
+                return this.foodIncRate_;
+            }
+            set
+            {
+                this.foodIncRate_ = value;
             }
         }
 

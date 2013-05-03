@@ -4,17 +4,33 @@ using System.Linq;
 using System.Text;
 
 using FliSan.GameObject;
+using FliSan.GameObject.GameCommands;
 
 namespace FliSan.GameAI
 {
     class CGameAIManager
     {
+        private Dictionary<int, IGameCommand> cityGameCommands_;
+
         public CGameAIManager()
         {
+            this.cityGameCommands_ = new Dictionary<int, IGameCommand>();
         }
 
         public void Update(CGame _game)
         {
+        }
+
+        public IGameCommand GetGameCommand(int _cityID)
+        {
+            if (this.cityGameCommands_.ContainsKey(_cityID))
+            {
+                return this.cityGameCommands_[_cityID];
+            }
+            else
+            {
+                return new CGameCmdNone();
+            }
         }
     }
 }
@@ -41,4 +57,15 @@ AI系统
  b 金钱向需要开发的城市集中
 
 3 军事评估，攻击目标
+
+
+AI计算流程
+1 势力情况
+势力根据每座城市的周边情况，计算该城市每个指令的权重
+
+2 武将能力
+该势力的每名武将根据自身能力值，计算自己执行每个指令的效率值（也可以在创建武将时就先行计算好）
+
+3 选择指令
+武将的指令效率值与城市的指令权重相加，得到指令的最终判定值，武将选择执行判定值最优的指令
  */

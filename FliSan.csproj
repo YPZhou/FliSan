@@ -120,6 +120,9 @@
     <Compile Include="GameObject\CharacterTraits\CCharacterTraitDictionary.cs" />
     <Compile Include="GameObject\CMap.cs" />
     <Compile Include="GameObject\CTroop.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdDevelopAgriculture.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdNone.cs" />
+    <Compile Include="GameObject\GameCommands\IGameCommand.cs" />
     <Compile Include="GameUI\CGameUIManager.cs" />
     <Compile Include="GameUI\CUIMapRenderer.cs" />
     <Compile Include="GameUI\IGameUI.cs" />

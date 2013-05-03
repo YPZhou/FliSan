@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using FliSan.GameAI;
+
 namespace FliSan.GameObject
 {
     class CFaction
@@ -23,13 +25,17 @@ namespace FliSan.GameObject
             this.controlledByPlayer_ = _controlledByPlayer;
         }
 
-        public void Update(int _gameTurn)
+        public void Update(int _gameTurn, CGameAIManager _gameAIManager)
         {
             if (this.controlledByPlayer_)
             {
             }
             else
             {
+                foreach (CCity city in this.cities_)
+                {
+                    city.PushGameCommand(_gameAIManager.GetGameCommand(city.ID));
+                }
             }
 
             foreach (CCity city in this.cities_)
