@@ -6,6 +6,17 @@ using FliSan.GameObject.CharacterTraits;
 
 namespace FliSan.GameObject
 {
+    enum EGameCommand
+    {
+        CmdDevelopAgriculture,
+        CmdDevelopCommerce,
+        CmdIncreaseCityDefence,
+        CmdRaiseTroop,
+        CmdAttack,
+        CmdConvey,
+        CmdEvaluate
+    }
+
     class CGame
     {
         private CMap map_;
