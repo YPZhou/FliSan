@@ -60,6 +60,10 @@ namespace FliSan.GameObject
 
         public void Update(int _gameTurn)
         {
+            foreach (CCharacter character in this.characters_)
+            {
+                character.HasMission = false;
+            }
             foreach (IGameCommand gameCommand in this.gameCommands_)
             {
                 gameCommand.Execute();
@@ -323,6 +327,18 @@ namespace FliSan.GameObject
             set
             {
                 this.foodIncRate_ = value;
+            }
+        }
+
+        public double GoldIncreaseRate
+        {
+            get
+            {
+                return this.goldIncRate_;
+            }
+            set
+            {
+                this.goldIncRate_ = value;
             }
         }
 

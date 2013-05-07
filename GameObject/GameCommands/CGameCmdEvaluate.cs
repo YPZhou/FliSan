@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FliSan.GameObject.GameCommands
 {
+    // cancel this class
+    // evaluate command will not be instantiated and queued
+    // directly return result of evaluation
     class CGameCmdEvaluate : IGameCommand
     {
         private CCharacter character1_;

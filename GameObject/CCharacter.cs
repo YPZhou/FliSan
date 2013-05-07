@@ -22,6 +22,8 @@ namespace FliSan.GameObject
 
         private List<CCharacterTrait> traits_;
 
+        private bool hasMission_;
+
         private static Random rand = new Random();
 
         public CCharacter(int _ID, CFaction _faction, CCity _city)
@@ -31,6 +33,8 @@ namespace FliSan.GameObject
             this.city_ = _city;
 
             this.traits_ = new List<CCharacterTrait>();
+
+            this.hasMission_ = false;
         }
 
         /// <summary>
@@ -240,6 +244,18 @@ namespace FliSan.GameObject
             get
             {
                 return this.traits_;
+            }
+        }
+
+        public bool HasMission
+        {
+            get
+            {
+                return this.hasMission_;
+            }
+            set
+            {
+                this.hasMission_ = value;
             }
         }
 
