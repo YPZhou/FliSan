@@ -120,8 +120,14 @@
     <Compile Include="GameObject\CharacterTraits\CCharacterTraitDictionary.cs" />
     <Compile Include="GameObject\CMap.cs" />
     <Compile Include="GameObject\CTroop.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdAttack.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdConvey.cs" />
     <Compile Include="GameObject\GameCommands\CGameCmdDevelopAgriculture.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdDevelopCommerce.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdEvaluate.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdIncreaseCityDefence.cs" />
     <Compile Include="GameObject\GameCommands\CGameCmdNone.cs" />
+    <Compile Include="GameObject\GameCommands\CGameCmdRaiseTroop.cs" />
     <Compile Include="GameObject\GameCommands\IGameCommand.cs" />
     <Compile Include="GameUI\CGameUIManager.cs" />
     <Compile Include="GameUI\CUIMapRenderer.cs" />
