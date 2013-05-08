@@ -91,7 +91,68 @@ namespace FliSan.GameObject
         {
         }
 
+        public CFaction GetFactionByIndex(int _index)
+        {
+            if (_index >= 0 && this.factions_.Count > _index)
+            {
+                return this.factions_[_index];
+            }
+            return null;
+        }
 
+        public CFaction GetFactionByID(int _id)
+        {
+            foreach (CFaction faction in this.factions_)
+            {
+                if (faction.ID == _id)
+                {
+                    return faction;
+                }
+            }
+            return null;
+        }
+
+        public CCity GetCityByIndex(int _index)
+        {
+            if (_index >= 0 && this.cities_.Count > _index)
+            {
+                return this.cities_[_index];
+            }
+            return null;
+        }
+
+        public CCity GetCityByID(int _id)
+        {
+            foreach (CCity city in this.cities_)
+            {
+                if (city.ID == _id)
+                {
+                    return city;
+                }
+            }
+            return null;
+        }
+
+        public CCharacter GetCharacterByIndex(int _index)
+        {
+            if (_index >= 0 && this.characters_.Count > _index)
+            {
+                return this.characters_[_index];
+            }
+            return null;
+        }
+
+        public CCharacter GetCharacterByID(int _id)
+        {
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.ID == _id)
+                {
+                    return character;
+                }
+            }
+            return null;
+        }
 
         public override String ToString()
         {
