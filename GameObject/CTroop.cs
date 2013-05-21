@@ -46,6 +46,22 @@ namespace FliSan.GameObject
             this.morale_ -= moraleLoss;
         }
 
+        public override String ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.character_.ToString());
+            sb.Append("士兵\t" + this.soldier_ + "\t士气\t" + this.morale_ + "\t伤兵\t" + this.injuredSoldier_);
+            return sb.ToString();
+        }
+
+        public bool IsDefeated
+        {
+            get
+            {
+                return this.soldier_ <= 0 || this.morale_ <= 0;
+            }
+        }
+
         public CCharacter Character
         {
             get

@@ -27,23 +27,34 @@ namespace FliSan.GameObject
 
         public int GetDamage(int _enemySoldierInTotal)
         {
+            int defeatedTroopCount = 0;
+            foreach (CTroop troop in this.troops_)
+            {
+                if (troop.IsDefeated)
+                {
+                    defeatedTroopCount++;
+                }
+            }
             float troopCountFacter = 1;
-            if (this.troops_.Count == 5)
+            if (this.troops_.Count - defeatedTroopCount == 5)
             {
                 troopCountFacter = 1.3f;
             }
-            else if (troops_.Count == 4)
+            else if (troops_.Count - defeatedTroopCount == 4)
             {
                 troopCountFacter = 1.2f;
             }
-            else if (troops_.Count == 3)
+            else if (troops_.Count - defeatedTroopCount == 3)
             {
                 troopCountFacter = 1.1f;
             }
             int damage = 0;
             foreach (CTroop troop in this.troops_)
             {
-                damage += troop.GetDamage(this.SoldierInTotal, _enemySoldierInTotal);
+                if (!troop.IsDefeated)
+                {
+                    damage += troop.GetDamage(this.SoldierInTotal, _enemySoldierInTotal);
+                }
             }
             return (int)(damage * troopCountFacter);
         }
@@ -53,7 +64,10 @@ namespace FliSan.GameObject
             int moraleDamage = 0;
             foreach (CTroop troop in this.troops_)
             {
-                moraleDamage += troop.GetMoraleDamage();
+                if (!troop.IsDefeated)
+                {
+                    moraleDamage += troop.GetMoraleDamage();
+                }
             }
             return moraleDamage;
         }
@@ -73,7 +87,10 @@ namespace FliSan.GameObject
             int damage = (int)Math.Ceiling(_damage / (float)this.troops_.Count);
             foreach (CTroop troop in this.troops_)
             {
-                troop.ApplyDamage(damage);
+                if (!troop.IsDefeated)
+                {
+                    troop.ApplyDamage(damage);
+                }
             }
         }
 
@@ -81,7 +98,10 @@ namespace FliSan.GameObject
         {
             foreach (CTroop troop in this.troops_)
             {
-                troop.ApplyMoraleDamage(_moraleDamage);
+                if (!troop.IsDefeated)
+                {
+                    troop.ApplyMoraleDamage(_moraleDamage);
+                }
             }
         }
 
@@ -93,6 +113,20 @@ namespace FliSan.GameObject
         public void ApplyCityMoraleDamage(int _moraleDamage)
         {
             this.city_.ApplyCityMoraleDamage(_moraleDamage);
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("城防\t" + this.city_.CityDefence + "\t\t" + this.city_.);
+            for (int i = 0; i < this.troops_.Count; i++)
+            {                
+                sb.Append("部队 " + i);
+                sb.AppendLine();
+                sb.Append(this.troops_[i].ToString());
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
 
         //public void ConsumeFood()
@@ -176,7 +210,7 @@ namespace FliSan.GameObject
         {
             get
             {
-                return this.IsCityDefenceBroken;
+                return this.city_.CityDefence <= 0;
             }
         }
 

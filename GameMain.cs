@@ -47,23 +47,23 @@ namespace FliSan
             CArmy army1 = new CArmy();
             army1.Faction = game_.GetFactionByIndex(0);
             army1.City = army1.Faction.Cities[0];
-            army1.IsAttacking = true;
+            army1.IsAttacking = false;
             CTroop troop1 = new CTroop();
             troop1.Character = army1.Faction.Characters[0];
             troop1.Faction = army1.Faction;
-            troop1.Soldier = 200;
+            troop1.Soldier = 500;
             troop1.Morale = 100;
             troop1.InjuredSoldier = 0;
             CTroop troop2 = new CTroop();
             troop2.Character = army1.Faction.Characters[1];
             troop2.Faction = army1.Faction;
-            troop2.Soldier = 200;
+            troop2.Soldier = 500;
             troop2.Morale = 100;
             troop2.InjuredSoldier = 0;
             CTroop troop3 = new CTroop();
             troop3.Character = army1.Faction.Characters[2];
             troop3.Faction = army1.Faction;
-            troop3.Soldier = 200;
+            troop3.Soldier = 500;
             troop3.Morale = 100;
             troop3.InjuredSoldier = 0;
             army1.AddTroop(troop1);
@@ -73,28 +73,42 @@ namespace FliSan
             CArmy army2 = new CArmy();
             army2.Faction = game_.GetFactionByIndex(1);
             army2.City = army2.Faction.Cities[0];
-            army2.IsAttacking = false;
+            army2.IsAttacking = true;
             CTroop troop4 = new CTroop();
             troop4.Character = army2.Faction.Characters[0];
             troop4.Faction = army2.Faction;
-            troop4.Soldier = 200;
+            troop4.Soldier = 1000;
             troop4.Morale = 100;
             troop4.InjuredSoldier = 0;
             CTroop troop5 = new CTroop();
             troop5.Character = army2.Faction.Characters[1];
             troop5.Faction = army2.Faction;
-            troop5.Soldier = 200;
+            troop5.Soldier = 1000;
             troop5.Morale = 100;
             troop5.InjuredSoldier = 0;
             CTroop troop6 = new CTroop();
             troop6.Character = army2.Faction.Characters[2];
             troop6.Faction = army2.Faction;
-            troop6.Soldier = 200;
+            troop6.Soldier = 1000;
             troop6.Morale = 100;
             troop6.InjuredSoldier = 0;
             army2.AddTroop(troop4);
             army2.AddTroop(troop5);
             army2.AddTroop(troop6);
+
+            CBattle battle = new CBattle();
+            battle.IsSieging = true;
+            battle.AddArmy(army1);
+            battle.AddArmy(army2);
+
+            sw = new StreamWriter(new FileStream("gameBattle.txt", FileMode.Create));          
+            while (!battle.IsBattleEnd)
+            {
+                sw.WriteLine("========== 回合 ==========");
+                sw.WriteLine(battle.ToString());
+                battle.Update();
+            }
+            sw.Close();
         }
 
         private void Start()

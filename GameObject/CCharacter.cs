@@ -259,6 +259,12 @@ namespace FliSan.GameObject
             }
         }
 
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            return sb.ToString();
+        }
+
         public override bool Equals(Object _that)
         {
             if (_that is CCharacter)

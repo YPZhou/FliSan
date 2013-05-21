@@ -50,7 +50,7 @@ namespace FliSan.GameObject
             this.foodConsumpRate_ = 0.1;
             this.goldIncRate_ = 1.0;
 
-            this.cityDefence_ = 1000;
+            this.cityDefence_ = 100;
             this.soldier_ = 500;
             this.injuredSoldier_ = 0;
             this.morale_ = 100;

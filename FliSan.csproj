@@ -42,10 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="sfmlnet-graphics-2">
-      <HintPath>..\..\SFML.Net-2.0-rc\lib\x86\sfmlnet-graphics-2.dll</HintPath>
+      <HintPath>..\SFML.Net-2.0\lib\sfmlnet-graphics-2.dll</HintPath>
     </Reference>
     <Reference Include="sfmlnet-window-2">
-      <HintPath>..\..\SFML.Net-2.0-rc\lib\x86\sfmlnet-window-2.dll</HintPath>
+      <HintPath>..\SFML.Net-2.0\lib\sfmlnet-window-2.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
