@@ -203,8 +203,8 @@ namespace FliSan.GameObject
                 this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
                 this.soldier_ -= soldierLoss;
 
-                this.foodIncRate_ = Math.Max(this.foodIncRate_ - (int)Math.Ceiling(_damage / 100000.0 * leaderShipFactor), 0);
-                this.goldIncRate_ = Math.Max(this.goldIncRate_ - (int)Math.Ceiling(_damage / 100000.0 * leaderShipFactor), 0);
+                this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 100000.0 * leaderShipFactor, 0);
+                this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 100000.0 * leaderShipFactor, 0);
                 this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 100 * leaderShipFactor) - soldierLoss, this.soldier_);
             }
             else
@@ -213,8 +213,8 @@ namespace FliSan.GameObject
                 this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
                 this.soldier_ -= soldierLoss;
 
-                this.foodIncRate_ = Math.Max(this.foodIncRate_ - (int)Math.Ceiling(_damage / 10000.0 * leaderShipFactor), 0);
-                this.goldIncRate_ = Math.Max(this.goldIncRate_ - (int)Math.Ceiling(_damage / 10000.0 * leaderShipFactor), 0);
+                this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 10000.0 * leaderShipFactor, 0);
+                this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 10000.0 * leaderShipFactor, 0);
                 this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 10 * leaderShipFactor) - soldierLoss, this.soldier_);
             }
         }
@@ -339,6 +339,18 @@ namespace FliSan.GameObject
             set
             {
                 this.goldIncRate_ = value;
+            }
+        }
+
+        public int Population
+        {
+            get
+            {
+                return this.population_;
+            }
+            set
+            {
+                this.population_ = value;
             }
         }
 

@@ -118,7 +118,7 @@ namespace FliSan.GameObject
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("城防\t" + this.city_.CityDefence + "\t\t" + this.city_.);
+            sb.AppendLine("城防\t" + this.city_.CityDefence + "\t士气\t" + this.city_.Morale + "\t人口\t" + this.city_.Population + "\t粮食收入\t" + this.city_.FoodIncreaseRate + "\t金钱收入\t" + this.city_.GoldIncreaseRate);
             for (int i = 0; i < this.troops_.Count; i++)
             {                
                 sb.Append("部队 " + i);
