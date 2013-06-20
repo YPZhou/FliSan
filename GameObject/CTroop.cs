@@ -34,7 +34,7 @@ namespace FliSan.GameObject
         {
             double characterFactor = 1 - (this.character_.LeaderShip - 8) / 24.0;
             int soldierLoss = Math.Min((int)Math.Ceiling(_damage * characterFactor), this.soldier_);
-            int soldierInjured = (int)Math.Ceiling(soldierLoss * (this.morale_ / 200.0f));
+            int soldierInjured = (int)Math.Ceiling(soldierLoss * (this.morale_ / 160.0f));
             this.soldier_ -= soldierLoss;
             this.injuredSoldier_ += soldierInjured;
         }

@@ -11,6 +11,7 @@ namespace FliSan.GameObject
         private CFaction faction_;
         private CCity city_;
         private bool isAttacking_;
+        private int status_;            // 0 normal 1 sieging 2 defending
 
         public CArmy()
         {
@@ -72,35 +73,64 @@ namespace FliSan.GameObject
             return moraleDamage;
         }
 
-        public int GetCityDamage(int _enemySoldierInTotal)
-        {
-            return this.city_.GetCityDamage(_enemySoldierInTotal);
-        }
+        //public int GetCityDamage(int _enemySoldierInTotal)
+        //{
+        //    return this.city_.GetCityDamage(_enemySoldierInTotal);
+        //}
 
-        public int GetCityMoraleDamage()
-        {
-            return this.city_.GetCityMoraleDamage();
-        }
+        //public int GetCityMoraleDamage()
+        //{
+        //    return this.city_.GetCityMoraleDamage();
+        //}
 
         public void ApplyDamage(int _damage)
         {
             int damage = (int)Math.Ceiling(_damage / (float)this.troops_.Count);
-            foreach (CTroop troop in this.troops_)
+            if (this.status_ == 2 && this.city_.CityDefence > 0)
             {
-                if (!troop.IsDefeated)
+                foreach (CTroop troop in this.troops_)
                 {
-                    troop.ApplyDamage(damage);
+                    if (!troop.IsDefeated)
+                    {
+                        troop.ApplyDamage((int)Math.Ceiling(damage / 10.0));
+                    }
+                }
+                this.city_.ApplyCityDamage(damage);
+            }
+            else if (this.status_ == 2)
+            {
+                foreach (CTroop troop in this.troops_)
+                {
+                    if (!troop.IsDefeated)
+                    {
+                        troop.ApplyDamage(damage);
+                    }
+                }
+                this.city_.ApplyCityDamage(damage);
+            }
+            else
+            {
+                foreach (CTroop troop in this.troops_)
+                {
+                    if (!troop.IsDefeated)
+                    {
+                        troop.ApplyDamage(damage);
+                    }
                 }
             }
+            
         }
 
         public void ApplyMoraleDamage(int _moraleDamage)
         {
-            foreach (CTroop troop in this.troops_)
+            if (this.status_ != 2 || (this.status_ == 2 && this.city_.CityDefence <= 0))
             {
-                if (!troop.IsDefeated)
+                foreach (CTroop troop in this.troops_)
                 {
-                    troop.ApplyMoraleDamage(_moraleDamage);
+                    if (!troop.IsDefeated)
+                    {
+                        troop.ApplyMoraleDamage(_moraleDamage);
+                    }
                 }
             }
         }
@@ -110,10 +140,10 @@ namespace FliSan.GameObject
             this.city_.ApplyCityDamage(_damage);
         }
 
-        public void ApplyCityMoraleDamage(int _moraleDamage)
-        {
-            this.city_.ApplyCityMoraleDamage(_moraleDamage);
-        }
+        //public void ApplyCityMoraleDamage(int _moraleDamage)
+        //{
+        //    this.city_.ApplyCityMoraleDamage(_moraleDamage);
+        //}
 
         public override string ToString()
         {
@@ -171,17 +201,17 @@ namespace FliSan.GameObject
             }
         }
 
-        public bool IsAttacking
-        {
-            get
-            {
-                return this.isAttacking_;
-            }
-            set
-            {
-                this.isAttacking_ = value;
-            }
-        }
+        //public bool IsAttacking
+        //{
+        //    get
+        //    {
+        //        return this.isAttacking_;
+        //    }
+        //    set
+        //    {
+        //        this.isAttacking_ = value;
+        //    }
+        //}
 
         public bool IsDefeated
         {
@@ -206,11 +236,23 @@ namespace FliSan.GameObject
             }
         }
 
-        public bool IsCityDefenceBroken
+        //public bool IsCityDefenceBroken
+        //{
+        //    get
+        //    {
+        //        return this.city_.CityDefence <= 0;
+        //    }
+        //}
+
+        public int Status
         {
             get
             {
-                return this.city_.CityDefence <= 0;
+                return this.status_;
+            }
+            set
+            {
+                this.status_ = value;
             }
         }
 

@@ -148,35 +148,35 @@ namespace FliSan.GameObject
             this.gameCommands_.Add(_gameCommand);
         }
 
-        public int GetCityDamage(int _enemySoldierInTotal)
-        {
-            int maxLeaderShip = 0;
-            foreach (CCharacter character in this.characters_)
-            {
-                if (character.LeaderShip > maxLeaderShip)
-                {
-                    maxLeaderShip = character.LeaderShip;
-                }
-            }
-            double leaderShipFactor = 1 + (maxLeaderShip - 8) / 24.0;
+        //public int GetCityDamage(int _enemySoldierInTotal)
+        //{
+        //    int maxLeaderShip = 0;
+        //    foreach (CCharacter character in this.characters_)
+        //    {
+        //        if (character.LeaderShip > maxLeaderShip)
+        //        {
+        //            maxLeaderShip = character.LeaderShip;
+        //        }
+        //    }
+        //    double leaderShipFactor = 1 + (maxLeaderShip - 8) / 24.0;
 
-            return (int)Math.Ceiling(Math.Min(this.soldier_ / 100.0f * (0.5f + this.soldier_ / _enemySoldierInTotal / 3.0), this.soldier_ / 10.0) * leaderShipFactor);
-        }
+        //    return (int)Math.Ceiling(Math.Min(this.soldier_ / 100.0f * (0.5f + this.soldier_ / _enemySoldierInTotal / 3.0), this.soldier_ / 10.0) * leaderShipFactor);
+        //}
 
-        public int GetCityMoraleDamage()
-        {
-            int maxStratagem = 0;
-            foreach (CCharacter character in this.characters_)
-            {
-                if (character.Stratagem > maxStratagem)
-                {
-                    maxStratagem = character.Stratagem;
-                }
-            }
-            double stratagemFactor = 1 + (maxStratagem - 8) / 24.0;
+        //public int GetCityMoraleDamage()
+        //{
+        //    int maxStratagem = 0;
+        //    foreach (CCharacter character in this.characters_)
+        //    {
+        //        if (character.Stratagem > maxStratagem)
+        //        {
+        //            maxStratagem = character.Stratagem;
+        //        }
+        //    }
+        //    double stratagemFactor = 1 + (maxStratagem - 8) / 24.0;
 
-            return (int)Math.Ceiling(Math.Min(this.characters_.Count, 3) * stratagemFactor);
-        }
+        //    return (int)Math.Ceiling(Math.Min(this.characters_.Count, 3) * stratagemFactor);
+        //}
 
         public void ApplyCityDamage(int _damage)
         {
@@ -199,44 +199,44 @@ namespace FliSan.GameObject
             if (this.cityDefence_ > 0)
             {
                 this.cityDefence_ = Math.Max(this.cityDefence_ - (int)Math.Ceiling(_damage * politicsFactor), 0);
-                int soldierLoss = Math.Min((int)Math.Ceiling(_damage / 10.0 * leaderShipFactor), this.soldier_);
-                this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
-                this.soldier_ -= soldierLoss;
+                //int soldierLoss = Math.Min((int)Math.Ceiling(_damage / 10.0 * leaderShipFactor), this.soldier_);
+                //this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
+                //this.soldier_ -= soldierLoss;
 
-                this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 100000.0 * leaderShipFactor, 0);
-                this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 100000.0 * leaderShipFactor, 0);
-                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 100 * leaderShipFactor) - soldierLoss, this.soldier_);
+                //this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 3000.0 * leaderShipFactor, 0);
+                //this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 3000.0 * leaderShipFactor, 0);
+                //this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 100 * leaderShipFactor) - soldierLoss, this.soldier_);
             }
             else
             {
-                int soldierLoss = Math.Min((int)Math.Ceiling(_damage * leaderShipFactor), this.soldier_);
-                this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
-                this.soldier_ -= soldierLoss;
+                //int soldierLoss = Math.Min((int)Math.Ceiling(_damage * leaderShipFactor), this.soldier_);
+                //this.injuredSoldier_ += (int)Math.Ceiling(soldierLoss * this.morale_ / 200.0);
+                //this.soldier_ -= soldierLoss;
 
-                this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 10000.0 * leaderShipFactor, 0);
-                this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 10000.0 * leaderShipFactor, 0);
-                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 10 * leaderShipFactor) - soldierLoss, this.soldier_);
+                this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 800.0 * leaderShipFactor, 0);
+                this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 800.0 * leaderShipFactor, 0);
+                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 0.8 * leaderShipFactor), 0);
             }
         }
 
-        public void ApplyCityMoraleDamage(int _moraleDamage)
-        {
-            // city will not lose morale when city defence is not broken
-            if (this.cityDefence_ <= 0)
-            {
-                int maxStratagem = 0;
-                foreach (CCharacter character in this.characters_)
-                {
-                    if (character.Stratagem > maxStratagem)
-                    {
-                        maxStratagem = character.Politics;
-                    }
-                }
-                double stratagemFactor = 1 - (maxStratagem - 8) / 24.0;
+        //public void ApplyCityMoraleDamage(int _moraleDamage)
+        //{
+        //    // city will not lose morale when city defence is not broken
+        //    if (this.cityDefence_ <= 0)
+        //    {
+        //        int maxStratagem = 0;
+        //        foreach (CCharacter character in this.characters_)
+        //        {
+        //            if (character.Stratagem > maxStratagem)
+        //            {
+        //                maxStratagem = character.Politics;
+        //            }
+        //        }
+        //        double stratagemFactor = 1 - (maxStratagem - 8) / 24.0;
 
-                this.morale_ = Math.Max(this.morale_ - (int)Math.Ceiling(_moraleDamage * stratagemFactor), 0);
-            }
-        }
+        //        this.morale_ = Math.Max(this.morale_ - (int)Math.Ceiling(_moraleDamage * stratagemFactor), 0);
+        //    }
+        //}
 
         public int ID
         {

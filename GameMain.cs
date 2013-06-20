@@ -47,7 +47,8 @@ namespace FliSan
             CArmy army1 = new CArmy();
             army1.Faction = game_.GetFactionByIndex(0);
             army1.City = army1.Faction.Cities[0];
-            army1.IsAttacking = false;
+            //army1.IsAttacking = false;
+            army1.Status = 2;
             CTroop troop1 = new CTroop();
             troop1.Character = army1.Faction.Characters[0];
             troop1.Faction = army1.Faction;
@@ -73,7 +74,8 @@ namespace FliSan
             CArmy army2 = new CArmy();
             army2.Faction = game_.GetFactionByIndex(1);
             army2.City = army2.Faction.Cities[0];
-            army2.IsAttacking = true;
+            //army2.IsAttacking = true;
+            army2.Status = 1;
             CTroop troop4 = new CTroop();
             troop4.Character = army2.Faction.Characters[0];
             troop4.Faction = army2.Faction;
@@ -97,7 +99,7 @@ namespace FliSan
             army2.AddTroop(troop6);
 
             CBattle battle = new CBattle();
-            battle.IsSieging = true;
+            //battle.IsSieging = true;
             battle.AddArmy(army1);
             battle.AddArmy(army2);
 
