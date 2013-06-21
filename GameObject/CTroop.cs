@@ -13,9 +13,11 @@ namespace FliSan.GameObject
         private int injuredSoldier_;
         private int morale_;
 
+        private static Random rand_ = new Random();
+
         public CTroop()
         {
-            
+            //rand_ = new Random();
         }
 
         public int GetDamage(int _soldierInTotal, int _enemySoldierInTotal)
@@ -37,6 +39,16 @@ namespace FliSan.GameObject
             int soldierInjured = (int)Math.Ceiling(soldierLoss * (this.morale_ / 160.0f));
             this.soldier_ -= soldierLoss;
             this.injuredSoldier_ += soldierInjured;
+
+            if (this.soldier_ == 0)
+            {
+                //Random rand = new Random();
+                double characterDeathRate = (21 - this.character_.CombatSkill) / 80.0;
+                if (CTroop.rand_.NextDouble() < characterDeathRate)
+                {
+                    this.character_.IsDead = true;
+                }
+            }
         }
 
         public void ApplyMoraleDamage(int _moraleDamage)
@@ -44,6 +56,16 @@ namespace FliSan.GameObject
             double characterFactor = 1 - (this.character_.Stratagem - 8) / 24.0;
             int moraleLoss = Math.Min((int)Math.Ceiling(_moraleDamage * characterFactor), this.morale_);
             this.morale_ -= moraleLoss;
+
+            if (this.morale_ == 0)
+            {
+                //Random rand = new Random();
+                double characterDeathRate = (21 - this.character_.CombatSkill) / 160.0;
+                if (CTroop.rand_.NextDouble() < characterDeathRate)
+                {
+                    this.character_.IsDead = true;
+                }
+            }
         }
 
         public override String ToString()
@@ -51,7 +73,14 @@ namespace FliSan.GameObject
             StringBuilder sb = new StringBuilder();
             sb.Append(this.character_.ToString());
             sb.AppendLine();
-            sb.Append("士兵\t" + this.soldier_ + "\t士气\t" + this.morale_ + "\t伤兵\t" + this.injuredSoldier_);
+            if (this.IsDefeated)
+            {
+                sb.Append("部队溃败");
+            }
+            else
+            {
+                sb.Append("士兵\t" + this.soldier_ + "\t士气\t" + this.morale_ + "\t伤兵\t" + this.injuredSoldier_);
+            }
             return sb.ToString();
         }
 

@@ -23,6 +23,7 @@ namespace FliSan.GameObject
         private List<CCharacterTrait> traits_;
 
         private bool hasMission_;
+        private bool isDead_;
 
         private static Random rand = new Random();
 
@@ -35,6 +36,7 @@ namespace FliSan.GameObject
             this.traits_ = new List<CCharacterTrait>();
 
             this.hasMission_ = false;
+            this.isDead_ = false;
         }
 
         /// <summary>
@@ -259,10 +261,29 @@ namespace FliSan.GameObject
             }
         }
 
+        public bool IsDead
+        {
+            get
+            {
+                return this.isDead_;
+            }
+            set
+            {
+                this.isDead_ = value;
+            }
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append("武力\t" + this.combatSkill_.ToString() + "\t统率\t" + this.leaderShip_.ToString() + "\t智力\t" + this.stratagem_.ToString());
+            if (this.isDead_)
+            {
+                sb.Append("武将死亡");
+            }
+            else
+            {
+                sb.Append("武力\t" + this.combatSkill_.ToString() + "\t统率\t" + this.leaderShip_.ToString() + "\t智力\t" + this.stratagem_.ToString());
+            }
             return sb.ToString();
         }
 
