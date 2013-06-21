@@ -29,8 +29,8 @@ namespace FliSan.GameObject
                 int dmg1 = this.armies_[0].GetDamage(this.armies_[1].SoldierInTotal);
                 int dmg2 = this.armies_[1].GetDamage(this.armies_[0].SoldierInTotal);
 
-                int moraleDmg1 = this.armies_[0].GetMoraleDamage();
-                int moraleDmg2 = this.armies_[1].GetMoraleDamage();
+                int moraleDmg1 = this.armies_[0].GetMoraleDamage(this.armies_[1].SoldierInTotal);
+                int moraleDmg2 = this.armies_[1].GetMoraleDamage(this.armies_[0].SoldierInTotal);
 
                 this.armies_[0].ApplyDamage(dmg2);
                 this.armies_[0].ApplyMoraleDamage(moraleDmg2);

@@ -27,7 +27,7 @@ namespace FliSan.GameObject
 
         public int GetMoraleDamage()
         {
-            return (int)(1 + (this.character_.Stratagem - 8) / 24.0);
+            return (int)Math.Ceiling((1 + (this.character_.Stratagem - 8) / 24.0));
         }
 
         public void ApplyDamage(int _damage)
@@ -50,6 +50,7 @@ namespace FliSan.GameObject
         {
             StringBuilder sb = new StringBuilder();
             sb.Append(this.character_.ToString());
+            sb.AppendLine();
             sb.Append("士兵\t" + this.soldier_ + "\t士气\t" + this.morale_ + "\t伤兵\t" + this.injuredSoldier_);
             return sb.ToString();
         }

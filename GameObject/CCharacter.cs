@@ -262,6 +262,7 @@ namespace FliSan.GameObject
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
+            sb.Append("武力\t" + this.combatSkill_.ToString() + "\t统率\t" + this.leaderShip_.ToString() + "\t智力\t" + this.stratagem_.ToString());
             return sb.ToString();
         }
 

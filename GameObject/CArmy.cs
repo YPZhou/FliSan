@@ -10,7 +10,7 @@ namespace FliSan.GameObject
         private List<CTroop> troops_;
         private CFaction faction_;
         private CCity city_;
-        private bool isAttacking_;
+        //private bool isAttacking_;
         private int status_;            // 0 normal 1 sieging 2 defending
 
         public CArmy()
@@ -60,7 +60,7 @@ namespace FliSan.GameObject
             return (int)(damage * troopCountFacter);
         }
 
-        public int GetMoraleDamage()
+        public int GetMoraleDamage(int _enemySoldierInTotal)
         {
             int moraleDamage = 0;
             foreach (CTroop troop in this.troops_)
@@ -70,7 +70,8 @@ namespace FliSan.GameObject
                     moraleDamage += troop.GetMoraleDamage();
                 }
             }
-            return moraleDamage;
+            double soldierFactor = (_enemySoldierInTotal - this.SoldierInTotal) / (double)_enemySoldierInTotal / 3.0;
+            return (int)Math.Ceiling(moraleDamage * (1 - soldierFactor));
         }
 
         //public int GetCityDamage(int _enemySoldierInTotal)
@@ -123,6 +124,7 @@ namespace FliSan.GameObject
 
         public void ApplyMoraleDamage(int _moraleDamage)
         {
+            int damage = (int)Math.Ceiling(_moraleDamage / (double)this.troops_.Count);
             if (this.status_ != 2 || (this.status_ == 2 && this.city_.CityDefence <= 0))
             {
                 foreach (CTroop troop in this.troops_)
