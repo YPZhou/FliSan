@@ -10,7 +10,6 @@ namespace FliSan.GameObject
         private List<CTroop> troops_;
         private CFaction faction_;
         private CCity city_;
-        //private bool isAttacking_;
         private int status_;            // 0 normal 1 sieging 2 defending
 
         public CArmy()
@@ -74,16 +73,6 @@ namespace FliSan.GameObject
             return (int)Math.Ceiling(moraleDamage * (1 - soldierFactor));
         }
 
-        //public int GetCityDamage(int _enemySoldierInTotal)
-        //{
-        //    return this.city_.GetCityDamage(_enemySoldierInTotal);
-        //}
-
-        //public int GetCityMoraleDamage()
-        //{
-        //    return this.city_.GetCityMoraleDamage();
-        //}
-
         public void ApplyDamage(int _damage)
         {
             int damage = (int)Math.Ceiling(_damage / (float)this.troops_.Count);
@@ -142,11 +131,6 @@ namespace FliSan.GameObject
             this.city_.ApplyCityDamage(_damage);
         }
 
-        //public void ApplyCityMoraleDamage(int _moraleDamage)
-        //{
-        //    this.city_.ApplyCityMoraleDamage(_moraleDamage);
-        //}
-
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -160,16 +144,6 @@ namespace FliSan.GameObject
             }
             return sb.ToString();
         }
-
-        //public void ConsumeFood()
-        //{
-        //    // need to complete rules for food consumption first
-        //}
-
-        //public void SoldierFlee()
-        //{
-        //    // need to complete rules for soldier flee first
-        //}
 
         public IEnumerator<CTroop> Troops
         {
@@ -203,18 +177,6 @@ namespace FliSan.GameObject
             }
         }
 
-        //public bool IsAttacking
-        //{
-        //    get
-        //    {
-        //        return this.isAttacking_;
-        //    }
-        //    set
-        //    {
-        //        this.isAttacking_ = value;
-        //    }
-        //}
-
         public bool IsDefeated
         {
             get
@@ -237,14 +199,6 @@ namespace FliSan.GameObject
                 }
             }
         }
-
-        //public bool IsCityDefenceBroken
-        //{
-        //    get
-        //    {
-        //        return this.city_.CityDefence <= 0;
-        //    }
-        //}
 
         public int Status
         {

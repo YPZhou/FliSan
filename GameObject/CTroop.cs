@@ -17,7 +17,6 @@ namespace FliSan.GameObject
 
         public CTroop()
         {
-            //rand_ = new Random();
         }
 
         public int GetDamage(int _soldierInTotal, int _enemySoldierInTotal)
@@ -42,7 +41,6 @@ namespace FliSan.GameObject
 
             if (this.soldier_ == 0)
             {
-                //Random rand = new Random();
                 double characterDeathRate = (21 - this.character_.CombatSkill) / 80.0;
                 if (CTroop.rand_.NextDouble() < characterDeathRate)
                 {
@@ -59,7 +57,6 @@ namespace FliSan.GameObject
 
             if (this.morale_ == 0)
             {
-                //Random rand = new Random();
                 double characterDeathRate = (21 - this.character_.CombatSkill) / 160.0;
                 if (CTroop.rand_.NextDouble() < characterDeathRate)
                 {
