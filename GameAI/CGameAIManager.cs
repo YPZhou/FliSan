@@ -10,15 +10,18 @@ namespace FliSan.GameAI
 {
     class CGameAIManager
     {
+        private IGameAI gameAI_;
         private Dictionary<int, IGameCommand> cityGameCommands_;
 
         public CGameAIManager()
         {
+            this.gameAI_ = new CGameAIRandom();
             this.cityGameCommands_ = new Dictionary<int, IGameCommand>();
         }
 
         public void Update(CGame _game)
         {
+            this.gameAI_.Run(_game, this.cityGameCommands_);
         }
 
         public IGameCommand GetGameCommand(int _cityID)

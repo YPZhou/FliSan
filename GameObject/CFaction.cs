@@ -61,6 +61,11 @@ namespace FliSan.GameObject
             }
         }
 
+        public void RemoveCity(CCity _city)
+        {
+            this.cities_.Remove(_city);
+        }
+
         public void AddCharacter(CCharacter _character)
         {
             bool canAddCharacter = true;

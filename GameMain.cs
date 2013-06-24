@@ -160,7 +160,7 @@ namespace FliSan
         private void Update()
         {
             this.gameUIManager_.Update(this.game_);
-            this.gameAIManager_.Update(this.game_); 
+            this.gameAIManager_.Update(this.game_);
             this.game_.Update();                      
         }
 
