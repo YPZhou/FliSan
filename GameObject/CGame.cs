@@ -159,33 +159,33 @@ namespace FliSan.GameObject
         {
             StringBuilder sb = new StringBuilder();
 
-            //for (int i = 0; i < this.map_.Width; i++)
-            //{
-            //    for (int j = 0; j < this.map_.Height; j++)
-            //    {
-            //        CCity city = this.map_[i, j];
-            //        if (city != null)
-            //        {
-            //            sb.Append("|\t" + city.Faction.ID + "\t|");
-            //        }
-            //        else
-            //        {
-            //            sb.Append("|\tX\t|");
-            //        }
-            //    }
-            //    sb.Append("\n");
-            //}
-
-            //sb.AppendLine();
-
-            sb.Append("========== 回合 " + this.gameTurn_.ToString() + " ==========");
-            sb.AppendLine();
-
-            foreach (CCity city in this.cities_)
+            for (int i = 0; i < this.map_.Width; i++)
             {
-                sb.Append(city.ToString());
+                for (int j = 0; j < this.map_.Height; j++)
+                {
+                    CCity city = this.map_[i, j];
+                    if (city != null)
+                    {
+                        sb.Append("|\t" + city.Faction.ID + "\t|");
+                    }
+                    else
+                    {
+                        sb.Append("|\tX\t|");
+                    }
+                }
                 sb.AppendLine();
             }
+
+            sb.AppendLine();
+
+            //sb.Append("========== 回合 " + this.gameTurn_.ToString() + " ==========");
+            //sb.AppendLine();
+
+            //foreach (CCity city in this.cities_)
+            //{
+            //    sb.Append(city.ToString());
+            //    sb.AppendLine();
+            //}
 
             //for (int i = 0; i < this.characters_.Count; i++)
             //{
