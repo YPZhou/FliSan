@@ -30,7 +30,6 @@ namespace FliSan.GameObject
         private int cityDefence_;
         private int soldier_;
         private int injuredSoldier_;
-        private int morale_;
 
         private List<IGameCommand> gameCommands_;
 
@@ -53,7 +52,6 @@ namespace FliSan.GameObject
             this.cityDefence_ = 100;
             this.soldier_ = 500;
             this.injuredSoldier_ = 0;
-            this.morale_ = 100;
 
             this.gameCommands_ = new List<IGameCommand>();
         }
@@ -102,7 +100,7 @@ namespace FliSan.GameObject
                 // check population increase every month (6 turns)
                 if (_gameTurn % 6 == 0)
                 {
-                    this.population_ += (int)Math.Ceiling(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 150.0);
+                    this.population_ += (int)Math.Ceiling(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 15.0);
                 }
             }
             else
@@ -118,11 +116,11 @@ namespace FliSan.GameObject
             // gold increase rate is doubled in winter
             if (_gameTurn % 72 > 54 && _gameTurn % 72 <= 71)
             {
-                this.gold_ += (int)Math.Ceiling(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_ * 2);
+                this.gold_ += (int)Math.Ceiling(Math.Max(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 6.0 - foodConsumption, 0) * this.goldIncRate_ * 2);
             }
             else
             {
-                this.gold_ += (int)Math.Ceiling(Math.Max(foodIncrease / 6.0 - foodConsumption, 0) * this.goldIncRate_);
+                this.gold_ += (int)Math.Ceiling(Math.Max(Math.Min(this.population_ - this.soldier_, this.maxAgriculturePopulation_) * this.foodIncRate_ / 6.0 - foodConsumption, 0) * this.goldIncRate_);
             }
         }
 
@@ -143,9 +141,9 @@ namespace FliSan.GameObject
             }
         }
 
-        public void PushGameCommand(IGameCommand _gameCommand)
+        public void PushGameCommands(List<IGameCommand> _gameCommands)
         {
-            this.gameCommands_.Add(_gameCommand);
+            this.gameCommands_.AddRange(_gameCommands);
         }
 
         public void ApplyCityDamage(int _damage)
@@ -306,24 +304,19 @@ namespace FliSan.GameObject
             }
         }
 
-        public int Morale
-        {
-            get
-            {
-                return this.morale_;
-            }
-            set
-            {
-                this.morale_ = value;
-            }
-        }
-
         public bool IsCityDefenceBroken
         {
             get
             {
                 return this.cityDefence_ <= 0;
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("城防\t" + this.cityDefence_.ToString() + "\t士兵\t" + this.soldier_.ToString() + "\t人口\t" + this.population_.ToString() + "\t粮食收入\t" + this.foodIncRate_.ToString() + "\t金钱收入\t" + this.goldIncRate_.ToString() + "\t粮食\t" + this.food_.ToString() + "\t金钱\t" + this.gold_.ToString());
+            return sb.ToString();
         }
 
         public override bool Equals(Object _that)

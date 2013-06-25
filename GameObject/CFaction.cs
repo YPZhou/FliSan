@@ -34,7 +34,7 @@ namespace FliSan.GameObject
             {
                 foreach (CCity city in this.cities_)
                 {
-                    city.PushGameCommand(_gameAIManager.GetGameCommand(city.ID));
+                    city.PushGameCommands(_gameAIManager.GetGameCommand(city.ID));
                 }
             }
 

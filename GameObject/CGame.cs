@@ -32,6 +32,7 @@ namespace FliSan.GameObject
         {
             if (_width > 0 && _height > 0)
             {
+                this.gameTurn_ = 1;
                 this.map_.CreateMap(_width, _height);
 
                 int cityCount = _width * _height;
@@ -158,38 +159,47 @@ namespace FliSan.GameObject
         {
             StringBuilder sb = new StringBuilder();
 
-            for (int i = 0; i < this.map_.Width; i++)
+            //for (int i = 0; i < this.map_.Width; i++)
+            //{
+            //    for (int j = 0; j < this.map_.Height; j++)
+            //    {
+            //        CCity city = this.map_[i, j];
+            //        if (city != null)
+            //        {
+            //            sb.Append("|\t" + city.Faction.ID + "\t|");
+            //        }
+            //        else
+            //        {
+            //            sb.Append("|\tX\t|");
+            //        }
+            //    }
+            //    sb.Append("\n");
+            //}
+
+            //sb.AppendLine();
+
+            sb.Append("========== 回合 " + this.gameTurn_.ToString() + " ==========");
+            sb.AppendLine();
+
+            foreach (CCity city in this.cities_)
             {
-                for (int j = 0; j < this.map_.Height; j++)
-                {
-                    CCity city = this.map_[i, j];
-                    if (city != null)
-                    {
-                        sb.Append("|\t" + city.Faction.ID + "\t|");
-                    }
-                    else
-                    {
-                        sb.Append("|\tX\t|");
-                    }
-                }
-                sb.Append("\n");
+                sb.Append(city.ToString());
+                sb.AppendLine();
             }
 
-            sb.Append("\n");
-
-            for (int i = 0; i < this.characters_.Count; i++)
-            {
-                CCharacter character = this.characters_[i];
-                CFaction faction = character.Faction;
-                CCharacter evaluator = faction.Characters[0];
-                List<int> attributes = evaluator.Evaluate(character, this.traitDictionary_);
-                sb.Append("势力：" + character.Faction.ID + "\t" + "统率：" + attributes[0] + "(" + character.LeaderShip + ")" + "\t" + "武力：" + attributes[1] + "(" + character.CombatSkill + ")" + "\t" + "智力：" + attributes[2] + "(" + character.Stratagem + ")" + "\t" + "政治：" + attributes[3] + "(" + character.Politics + ")" + "\t" + "相性：" + evaluator.Judgement(character, this.traitDictionary_));
-                foreach (CCharacterTrait trait in character.Traits)
-                {
-                    sb.Append("\t" + trait.ToString());
-                }
-                sb.Append("\n");
-            }
+            //for (int i = 0; i < this.characters_.Count; i++)
+            //{
+            //    CCharacter character = this.characters_[i];
+            //    CFaction faction = character.Faction;
+            //    CCharacter evaluator = faction.Characters[0];
+            //    List<int> attributes = evaluator.Evaluate(character, this.traitDictionary_);
+            //    sb.Append("势力：" + character.Faction.ID + "\t" + "统率：" + attributes[0] + "(" + character.LeaderShip + ")" + "\t" + "武力：" + attributes[1] + "(" + character.CombatSkill + ")" + "\t" + "智力：" + attributes[2] + "(" + character.Stratagem + ")" + "\t" + "政治：" + attributes[3] + "(" + character.Politics + ")" + "\t" + "相性：" + evaluator.Judgement(character, this.traitDictionary_));
+            //    foreach (CCharacterTrait trait in character.Traits)
+            //    {
+            //        sb.Append("\t" + trait.ToString());
+            //    }
+            //    sb.Append("\n");
+            //}
 
             return sb.ToString();
         }
@@ -211,6 +221,62 @@ namespace FliSan.GameObject
             get
             {
                 return this.map_;
+            }
+        }
+
+        public int GameTurn
+        {
+            get
+            {
+                return this.gameTurn_;
+            }
+        }
+
+        public int FactionCount
+        {
+            get
+            {
+                return this.factions_.Count;
+            }
+        }
+
+        public int CityCount
+        {
+            get
+            {
+                return this.cities_.Count;
+            }
+        }
+
+        public int CharacterCount
+        {
+            get
+            {
+                return this.characters_.Count;
+            }
+        }
+
+        public List<CFaction> Factions
+        {
+            get
+            {
+                return this.factions_;
+            }
+        }
+
+        public List<CCity> Cities
+        {
+            get
+            {
+                return this.cities_;
+            }
+        }
+
+        public List<CCharacter> Characters
+        {
+            get
+            {
+                return this.characters_;
             }
         }
     }

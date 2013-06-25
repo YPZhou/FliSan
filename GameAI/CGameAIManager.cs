@@ -11,20 +11,21 @@ namespace FliSan.GameAI
     class CGameAIManager
     {
         private IGameAI gameAI_;
-        private Dictionary<int, IGameCommand> cityGameCommands_;
+        private Dictionary<int, List<IGameCommand>> cityGameCommands_;
 
         public CGameAIManager()
         {
             this.gameAI_ = new CGameAIRandom();
-            this.cityGameCommands_ = new Dictionary<int, IGameCommand>();
+            this.cityGameCommands_ = new Dictionary<int, List<IGameCommand>>();
         }
 
         public void Update(CGame _game)
         {
+            this.cityGameCommands_.Clear();
             this.gameAI_.Run(_game, this.cityGameCommands_);
         }
 
-        public IGameCommand GetGameCommand(int _cityID)
+        public List<IGameCommand> GetGameCommand(int _cityID)
         {
             if (this.cityGameCommands_.ContainsKey(_cityID))
             {
@@ -32,7 +33,7 @@ namespace FliSan.GameAI
             }
             else
             {
-                return new CGameCmdNone();
+                return null;
             }
         }
     }

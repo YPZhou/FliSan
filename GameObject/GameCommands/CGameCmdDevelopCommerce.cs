@@ -20,7 +20,7 @@ namespace FliSan.GameObject.GameCommands
 
         public void Execute()
         {
-            if (this.city_.Gold > this.goldCost_ && !this.character_.HasMission)
+            if (this.city_.Gold >= this.goldCost_ && !this.character_.HasMission)
             {
                 this.city_.Gold -= this.goldCost_;
                 this.character_.HasMission = true;
