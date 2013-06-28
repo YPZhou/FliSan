@@ -10,25 +10,30 @@ namespace FliSan.GameAI
 {
     class CGameAIManager
     {
+        private CGame game_;
         private IGameAI gameAI_;
         private Dictionary<int, List<IGameCommand>> cityGameCommands_;
 
-        public CGameAIManager()
+        public CGameAIManager(CGame _game)
         {
+            this.game_ = _game;
             this.gameAI_ = new CGameAIRandom();
             this.cityGameCommands_ = new Dictionary<int, List<IGameCommand>>();
         }
 
-        public void Update(CGame _game)
-        {
-            this.cityGameCommands_.Clear();
-            this.gameAI_.Run(_game, this.cityGameCommands_);
-        }
+        //public void Update(CGame _game)
+        //{
+        //    this.cityGameCommands_.Clear();
+        //    this.gameAI_.Run(_game, this.cityGameCommands_);
+        //}
 
         public List<IGameCommand> GetGameCommand(int _cityID)
         {
+            this.cityGameCommands_.Clear();
+            this.gameAI_.GenerateCommands(this.game_, this.cityGameCommands_, _cityID);
+
             if (this.cityGameCommands_.ContainsKey(_cityID))
-            {
+            {                
                 return this.cityGameCommands_[_cityID];
             }
             else

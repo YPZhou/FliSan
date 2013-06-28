@@ -206,7 +206,7 @@ namespace FliSan.GameObject
 
         public void Update()
         {
-            this.gameAIManager_.Update(this);
+            //this.gameAIManager_.Update(this);
 
             foreach (CFaction faction in this.factions_)
             {

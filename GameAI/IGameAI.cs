@@ -10,6 +10,6 @@ namespace FliSan.GameAI
 {
     interface IGameAI
     {
-        void Run(CGame _game, Dictionary<int, List<IGameCommand>> _cityGameCommands);
+        void GenerateCommands(CGame _game, Dictionary<int, List<IGameCommand>> _cityGameCommands, int _cityID);
     }
 }

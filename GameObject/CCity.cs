@@ -196,6 +196,14 @@ namespace FliSan.GameObject
             }
         }
 
+        public List<CCharacter> Characters
+        {
+            get
+            {
+                return this.characters_;
+            }
+        }
+
         public int MapCoordX
         {
             get

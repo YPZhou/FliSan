@@ -17,9 +17,10 @@ namespace FliSan.GameAI
             this.rand_ = new Random();
         }
 
-        public void Run(CGame _game, Dictionary<int, List<IGameCommand>> _cityGameCommands)
+        public void GenerateCommands(CGame _game, Dictionary<int, List<IGameCommand>> _cityGameCommands, int _cityID)
         {
-            foreach (CCharacter character in _game.Characters)
+            CCity city = _game.GetCityByID(_cityID);
+            foreach (CCharacter character in city.Characters)
             {
                 if (!_cityGameCommands.ContainsKey(character.City.ID))
                 {

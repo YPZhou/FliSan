@@ -34,12 +34,12 @@ namespace FliSan
 
         private void Initialize()
         {
-            gameUIManager_ = new CGameUIManager();
-            gameAIManager_ = new CGameAIManager();
-            gameUIManager_.AddUI(new CUIMapRenderer(this.game_));
-
             game_ = new CGame(this.gameAIManager_);
             game_.CreateGame(10, 10);
+
+            gameUIManager_ = new CGameUIManager();
+            gameAIManager_ = new CGameAIManager(this.game_);
+            gameUIManager_.AddUI(new CUIMapRenderer(this.game_));
             
             StreamWriter sw = new StreamWriter(new FileStream("gameMap.txt", FileMode.Create));
 
@@ -169,7 +169,7 @@ namespace FliSan
         private void Update()
         {
             this.gameUIManager_.Update(this.game_);
-            this.gameAIManager_.Update(this.game_);
+            //this.gameAIManager_.Update(this.game_);
             this.game_.Update();                      
         }
 
