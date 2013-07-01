@@ -7,9 +7,9 @@ namespace FliSan.GameObject.GameCommands
 {
     class CGameCmdAttack : IGameCommand
     {
-        private CCity city_;
-        private CCharacter character_;
-        private int goldCost_;
+        private CCity attacker_;
+        private CCity target_;
+        private CBattle battle_;
 
         public CGameCmdAttack()
         {
@@ -17,7 +17,9 @@ namespace FliSan.GameObject.GameCommands
 
         public void Execute()
         {
-            throw new NotImplementedException();
+            //to implement ...
+            // 1. Update this.battle_ until it is ended
+            // 2. Update stats for two cities
         }
     }
 }
