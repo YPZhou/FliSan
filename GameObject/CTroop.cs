@@ -7,7 +7,10 @@ namespace FliSan.GameObject
 {
     class CTroop
     {
-        private CCharacter character_;
+        private List<CCharacter> characters_;
+        private int maxCombatSkill_;
+        private int maxLeaderShip_;
+        private int maxStratagem_;
         private CFaction faction_;
         private int soldier_;
         private int injuredSoldier_;
@@ -15,25 +18,50 @@ namespace FliSan.GameObject
 
         private static Random rand_ = new Random();
 
-        public CTroop()
+        public CTroop(List<CCharacter> _characters, CFaction _faction, int _soldier)
         {
+            this.characters_ = _characters;
+
+            this.maxCombatSkill_ = 0;
+            this.maxLeaderShip_ = 0;
+            this.maxStratagem_ = 0;
+            foreach (CCharacter character in this.characters_)
+            {
+                if (character.CombatSkill > this.maxCombatSkill_)
+                {
+                    this.maxCombatSkill_ = character.CombatSkill;
+                }
+                if (character.LeaderShip > this.maxLeaderShip_)
+                {
+                    this.maxLeaderShip_ = character.LeaderShip;
+                }
+                if (character.Stratagem > this.maxStratagem_)
+                {
+                    this.maxStratagem_ = character.Stratagem;
+                }
+            }
+
+            this.faction_ = _faction;
+            this.soldier_ = _soldier;
+            this.injuredSoldier_ = 0;
+            this.morale_ = 100;
         }
 
         public int GetDamage(int _soldierInTotal, int _enemySoldierInTotal)
         {
             double soldierFactor = Math.Min(this.soldier_ / 100.0f * (0.5f + _soldierInTotal / _enemySoldierInTotal / 3.0), this.soldier_ / 10.0);
-            double characterFactor = 1 + (this.character_.CombatSkill - 8) / 24.0;
+            double characterFactor = 1 + (this.maxCombatSkill_ - 8) / 24.0;
             return (int)Math.Ceiling(soldierFactor * characterFactor);
         }
 
         public int GetMoraleDamage()
         {
-            return (int)Math.Ceiling((1 + (this.character_.Stratagem - 8) / 24.0));
+            return (int)Math.Ceiling((1 + (this.maxStratagem_ - 8) / 24.0));
         }
 
         public void ApplyDamage(int _damage)
         {
-            double characterFactor = 1 - (this.character_.LeaderShip - 8) / 24.0;
+            double characterFactor = 1 - (this.maxLeaderShip_ - 8) / 24.0;
             int soldierLoss = Math.Min((int)Math.Ceiling(_damage * characterFactor), this.soldier_);
             int soldierInjured = (int)Math.Ceiling(soldierLoss * (this.morale_ / 160.0f));
             this.soldier_ -= soldierLoss;
@@ -41,26 +69,32 @@ namespace FliSan.GameObject
 
             if (this.soldier_ == 0)
             {
-                double characterDeathRate = (21 - this.character_.CombatSkill) / 80.0;
-                if (CTroop.rand_.NextDouble() < characterDeathRate)
+                foreach (CCharacter character in this.characters_)
                 {
-                    this.character_.IsDead = true;
+                    double characterDeathRate = (21 - character.CombatSkill) / 80.0;
+                    if (CTroop.rand_.NextDouble() < characterDeathRate)
+                    {
+                        character.IsDead = true;
+                    }
                 }
             }
         }
 
         public void ApplyMoraleDamage(int _moraleDamage)
         {
-            double characterFactor = 1 - (this.character_.Stratagem - 8) / 24.0;
+            double characterFactor = 1 - (this.maxStratagem_ - 8) / 24.0;
             int moraleLoss = Math.Min((int)Math.Ceiling(_moraleDamage * characterFactor), this.morale_);
             this.morale_ -= moraleLoss;
 
             if (this.morale_ == 0)
             {
-                double characterDeathRate = (21 - this.character_.CombatSkill) / 160.0;
-                if (CTroop.rand_.NextDouble() < characterDeathRate)
+                foreach (CCharacter character in this.characters_)
                 {
-                    this.character_.IsDead = true;
+                    double characterDeathRate = (21 - character.CombatSkill) / 160.0;
+                    if (CTroop.rand_.NextDouble() < characterDeathRate)
+                    {
+                        character.IsDead = true;
+                    }
                 }
             }
         }
@@ -68,8 +102,11 @@ namespace FliSan.GameObject
         public override String ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append(this.character_.ToString());
-            sb.AppendLine();
+            foreach (CCharacter character in this.characters_)
+            {
+                sb.Append(character.ToString());
+                sb.AppendLine();
+            }            
             if (this.IsDefeated)
             {
                 sb.Append("部队溃败");
@@ -89,15 +126,11 @@ namespace FliSan.GameObject
             }
         }
 
-        public CCharacter Character
+        public IEnumerator<CCharacter> Character
         {
             get
             {
-                return this.character_;
-            }
-            set
-            {
-                this.character_ = value;
+                return this.characters_.GetEnumerator();
             }
         }
 
@@ -107,10 +140,6 @@ namespace FliSan.GameObject
             {
                 return this.faction_;
             }
-            set
-            {
-                this.faction_ = value;
-            }
         }
 
         public int Soldier
@@ -118,10 +147,6 @@ namespace FliSan.GameObject
             get
             {
                 return this.soldier_;
-            }
-            set
-            {
-                this.soldier_ = value;
             }
         }
 
@@ -131,10 +156,6 @@ namespace FliSan.GameObject
             {
                 return this.injuredSoldier_;
             }
-            set
-            {
-                this.injuredSoldier_ = value;
-            }
         }
 
         public int Morale
@@ -142,10 +163,6 @@ namespace FliSan.GameObject
             get
             {
                 return this.morale_;
-            }
-            set
-            {
-                this.morale_ = value;
             }
         }        
     }

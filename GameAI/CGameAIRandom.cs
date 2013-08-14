@@ -27,13 +27,13 @@ namespace FliSan.GameAI
 
             if (this.rand_.Next(10) < 5)
             {
-                IGameCommand gameCmdAttack = new CGameCmdAttack();
+                IGameCommand gameCmdAttack = new CGameCmdAttack(-1, null);
 
                 // to implement ...
                 // 1. randomly pick characters
                 // 2. randomly pick soldier number for each troop
-                // 3.1 randomly pick target city and generate defending army
-                // 3.2 wait for player input and get defending army
+                // 3. randomly pick target city
+                // defending army will be generated during command execution
 
                 _cityGameCommands[_cityID].Add(gameCmdAttack);
             }
@@ -57,6 +57,11 @@ namespace FliSan.GameAI
                         break;
                 }
             }
+        }
+
+        public CArmy GetDefendingArmy(CGame _game, int _cityID, CArmy _attackingArmy)
+        {
+            return null;
         }
     }
 }

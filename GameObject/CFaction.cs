@@ -40,7 +40,7 @@ namespace FliSan.GameObject
 
             foreach (CCity city in this.cities_)
             {
-                city.Update(_gameTurn);
+                city.Update(_gameTurn, _gameAIManager);
             }
         }
 

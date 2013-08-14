@@ -41,6 +41,11 @@ namespace FliSan.GameAI
                 return null;
             }
         }
+
+        public CArmy GetDefendingArmy(int _cityID, CArmy _attackingArmy)
+        {
+            return this.gameAI_.GetDefendingArmy(this.game_, _cityID, _attackingArmy);
+        }
     }
 }
 

@@ -34,7 +34,7 @@ namespace FliSan
 
         private void Initialize()
         {
-            game_ = new CGame(this.gameAIManager_);
+            game_ = new CGame();
             game_.CreateGame(10, 10);
 
             gameUIManager_ = new CGameUIManager();
@@ -47,7 +47,7 @@ namespace FliSan
             while (game_.GameTurn < 100)
             {
                 //sw.Write(game_.ToString());
-                game_.Update();
+                game_.Update(gameAIManager_);
             }
             sw.Write(game_.ToString());
 
@@ -170,7 +170,7 @@ namespace FliSan
         {
             this.gameUIManager_.Update(this.game_);
             //this.gameAIManager_.Update(this.game_);
-            this.game_.Update();                      
+            this.game_.Update(gameAIManager_);                      
         }
 
         private void Render(RenderWindow _window)

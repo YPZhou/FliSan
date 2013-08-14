@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 using FliSan.GameObject.GameCommands;
 
+using FliSan.GameAI;
+
 namespace FliSan.GameObject
 {
     class CCity
@@ -56,7 +58,7 @@ namespace FliSan.GameObject
             this.gameCommands_ = new List<IGameCommand>();
         }
 
-        public void Update(int _gameTurn)
+        public void Update(int _gameTurn, CGameAIManager _gameAIManager)
         {
             foreach (CCharacter character in this.characters_)
             {
@@ -64,7 +66,7 @@ namespace FliSan.GameObject
             }
             foreach (IGameCommand gameCommand in this.gameCommands_)
             {
-                gameCommand.Execute();
+                gameCommand.Execute(_gameAIManager);
             }
             this.gameCommands_.Clear();
 
@@ -167,6 +169,9 @@ namespace FliSan.GameObject
             if (this.cityDefence_ > 0)
             {
                 this.cityDefence_ = Math.Max(this.cityDefence_ - (int)Math.Ceiling(_damage * politicsFactor), 0);
+                this.foodIncRate_ = Math.Max(this.foodIncRate_ - _damage / 8000.0 * leaderShipFactor, 0);
+                this.goldIncRate_ = Math.Max(this.goldIncRate_ - _damage / 8000.0 * leaderShipFactor, 0);
+                this.population_ = Math.Max(this.population_ - (int)Math.Ceiling(_damage / 8.0 * leaderShipFactor), 0);
             }
             else
             {

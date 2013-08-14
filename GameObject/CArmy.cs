@@ -8,46 +8,23 @@ namespace FliSan.GameObject
     class CArmy
     {
         private List<CTroop> troops_;
+        private int troopCount_;
         private CFaction faction_;
         private CCity city_;
         private int status_;            // 0 normal 1 sieging 2 defending
 
-        public CArmy()
+        public CArmy(List<CTroop> _troops, CCity _city, int _status)
         {
-            this.troops_ = new List<CTroop>();
-        }
-
-        public void AddTroop(CTroop _troop)
-        {
-            if (_troop != null)
-            {
-                this.troops_.Add(_troop);
-            }
+            this.troops_ = _troops;
+            this.troopCount_ = this.troops_.Count;
+            this.faction_ = this.troops_[0].Faction;
+            this.city_ = _city;
+            this.status_ = _status;
         }
 
         public int GetDamage(int _enemySoldierInTotal)
         {
-            int defeatedTroopCount = 0;
-            foreach (CTroop troop in this.troops_)
-            {
-                if (troop.IsDefeated)
-                {
-                    defeatedTroopCount++;
-                }
-            }
-            float troopCountFacter = 1;
-            if (this.troops_.Count - defeatedTroopCount == 5)
-            {
-                troopCountFacter = 1.3f;
-            }
-            else if (troops_.Count - defeatedTroopCount == 4)
-            {
-                troopCountFacter = 1.2f;
-            }
-            else if (troops_.Count - defeatedTroopCount == 3)
-            {
-                troopCountFacter = 1.1f;
-            }
+            float troopCountFacter = Math.Max(0, this.troopCount_) * 0.1f + 1;
             int damage = 0;
             foreach (CTroop troop in this.troops_)
             {
@@ -75,25 +52,22 @@ namespace FliSan.GameObject
 
         public void ApplyDamage(int _damage)
         {
-            int damage = (int)Math.Ceiling(_damage / (float)this.troops_.Count);
-            if (this.status_ == 2 && this.city_.CityDefence > 0)
+            int damage = (int)Math.Ceiling(_damage / (double)this.troopCount_);
+            if (this.status_ == 2)
             {
-                foreach (CTroop troop in this.troops_)
+                if (this.city_.CityDefence > 0)
                 {
-                    if (!troop.IsDefeated)
-                    {
-                        troop.ApplyDamage((int)Math.Ceiling(damage / 10.0));
-                    }
+                    damage = (int)Math.Ceiling(damage / 10.0);
                 }
-                this.city_.ApplyCityDamage(damage);
-            }
-            else if (this.status_ == 2)
-            {
                 foreach (CTroop troop in this.troops_)
                 {
                     if (!troop.IsDefeated)
                     {
                         troop.ApplyDamage(damage);
+                        if (troop.IsDefeated)
+                        {
+                            this.troopCount_--;
+                        }
                     }
                 }
                 this.city_.ApplyCityDamage(damage);
@@ -105,6 +79,10 @@ namespace FliSan.GameObject
                     if (!troop.IsDefeated)
                     {
                         troop.ApplyDamage(damage);
+                        if (troop.IsDefeated)
+                        {
+                            this.troopCount_--;
+                        }
                     }
                 }
             }
@@ -113,7 +91,7 @@ namespace FliSan.GameObject
 
         public void ApplyMoraleDamage(int _moraleDamage)
         {
-            int damage = (int)Math.Ceiling(_moraleDamage / (double)this.troops_.Count);
+            int damage = (int)Math.Ceiling(_moraleDamage / (double)this.troopCount_);
             if (this.status_ != 2 || (this.status_ == 2 && this.city_.CityDefence <= 0))
             {
                 foreach (CTroop troop in this.troops_)
@@ -121,14 +99,13 @@ namespace FliSan.GameObject
                     if (!troop.IsDefeated)
                     {
                         troop.ApplyMoraleDamage(_moraleDamage);
+                        if (troop.IsDefeated)
+                        {
+                            this.troopCount_--;
+                        }
                     }
                 }
             }
-        }
-
-        public void ApplyCityDamage(int _damage)
-        {
-            this.city_.ApplyCityDamage(_damage);
         }
 
         public override string ToString()
@@ -159,10 +136,6 @@ namespace FliSan.GameObject
             {
                 return this.faction_;
             }
-            set
-            {
-                this.faction_ = value;
-            }
         }
 
         public CCity City
@@ -170,10 +143,6 @@ namespace FliSan.GameObject
             get
             {
                 return this.city_;
-            }
-            set
-            {
-                this.city_ = value;
             }
         }
 
@@ -205,10 +174,6 @@ namespace FliSan.GameObject
             get
             {
                 return this.status_;
-            }
-            set
-            {
-                this.status_ = value;
             }
         }
 

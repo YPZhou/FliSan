@@ -14,18 +14,16 @@ namespace FliSan.GameObject
         private List<CCity> cities_;
         private List<CCharacter> characters_;
         private CCharacterTraitDictionary traitDictionary_;
-        private CGameAIManager gameAIManager_;
 
         private int gameTurn_;
 
-        public CGame(CGameAIManager _gameAIManager)
+        public CGame()
         {
             this.map_ = new CMap();
             this.factions_ = new List<CFaction>();
             this.cities_ = new List<CCity>();
             this.characters_ = new List<CCharacter>();
             this.traitDictionary_ = new CCharacterTraitDictionary();
-            this.gameAIManager_ = _gameAIManager;
         }
 
         public void CreateGame(int _width, int _height)
@@ -204,13 +202,13 @@ namespace FliSan.GameObject
             return sb.ToString();
         }
 
-        public void Update()
+        public void Update(CGameAIManager _gameAIManager)
         {
             //this.gameAIManager_.Update(this);
 
             foreach (CFaction faction in this.factions_)
             {
-                faction.Update(this.gameTurn_, this.gameAIManager_);
+                faction.Update(this.gameTurn_, _gameAIManager);
             }
 
             this.gameTurn_++;

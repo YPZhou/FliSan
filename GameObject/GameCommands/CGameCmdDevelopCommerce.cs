@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using FliSan.GameAI;
+
 namespace FliSan.GameObject.GameCommands
 {
     class CGameCmdDevelopCommerce : IGameCommand
@@ -18,7 +20,7 @@ namespace FliSan.GameObject.GameCommands
             this.goldCost_ = _goldCost;
         }
 
-        public void Execute()
+        public void Execute(CGameAIManager _gameAIManager)
         {
             if (this.city_.Gold >= this.goldCost_ && !this.character_.HasMission)
             {

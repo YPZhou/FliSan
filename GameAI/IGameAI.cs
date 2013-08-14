@@ -11,5 +11,6 @@ namespace FliSan.GameAI
     interface IGameAI
     {
         void GenerateCommands(CGame _game, Dictionary<int, List<IGameCommand>> _cityGameCommands, int _cityID);
+        CArmy GetDefendingArmy(CGame _game, int _cityID, CArmy _attackingArmy);
     }
 }
